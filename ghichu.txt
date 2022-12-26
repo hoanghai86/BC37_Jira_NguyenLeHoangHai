@@ -1,0 +1,14 @@
+1.Cài đặt thư viện cấu trúc:
+npm i redux
+npm i react-redux
+npm i styled-component
+npm i axios
+npm i react-router-dom
+npm i antd
+npm i tailwindcss
+npm i redux-saga
+npm i redux-thunk
+npm i moment
+npm i sass-loader
+npm i node-sass
+...
