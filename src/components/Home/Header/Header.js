@@ -1,18 +1,19 @@
 import React from "react";
-import {Link, NavLink} from "react-router-dom"
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
+
 
 export default function Header() {
   return (
-    <header className="bg-slate-900 h-20">
-    <div className="container h-full mx-auto flex justify-start items-center">
-      <Link to="/" className="text-2xl text-white">
-        Cyber Movie
-      </Link>
-      <Link to="/home" className="text-white px-2">Home</Link>
-      <Link to="/about" className="text-white px-2">About</Link>
-      <Link to="/contact" className="text-white px-2">Contact</Link>
-     
-    </div>
-  </header>
+    <Navbar bg="dark" variant="dark">
+      <div className="container mx-auto">
+        <Link to="/home" className="text-white text-3xl hover:no-underline">CyberLearn</Link>
+        <Nav className="me-auto">
+          <Link to="/home" className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Home</Link>
+          <Link to="/about" className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">About</Link>
+          <Link to="/contact" className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Contact</Link>
+        </Nav>
+      </div>
+    </Navbar>
   );
 }
