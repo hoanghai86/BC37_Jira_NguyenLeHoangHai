@@ -9,9 +9,10 @@ export default function Header() {
       <div className="container mx-auto">
         <Link to="/home" className="text-white text-3xl hover:no-underline">CyberLearn</Link>
         <Nav className="me-auto">
-          <Link to="/home" className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Home</Link>
-          <Link to="/about" className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">About</Link>
-          <Link to="/contact" className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Contact</Link>
+          <NavLink to="/home" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline">Home</NavLink>
+          <NavLink to="/about" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">About</NavLink>
+          <NavLink to="/contact" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Contact</NavLink>
+          <NavLink to="/login" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Login</NavLink>
         </Nav>
       </div>
     </Navbar>
