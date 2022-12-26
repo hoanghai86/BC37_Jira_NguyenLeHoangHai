@@ -1,44 +1,18 @@
 import React from "react";
-import {
-  Button,
-  Container,
-  Form,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
+import {Link, NavLink} from "react-router-dom"
 
 export default function Header() {
   return (
-    <>
-      <Navbar bg="light" expand="lg" className="bg-dark navbar-dark">
-        <Container fluid>
-          <Navbar.Brand href="#">CyberLearn</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll" className="justify-between">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <Nav.Link href="/home">Home</Nav.Link>
-              <Nav.Link href="/about">About</Nav.Link>
-              <Nav.Link href="/contact">Contact</Nav.Link>
-            </Nav>
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="success" type="submit">
-                Search
-              </Button>
-            </Form>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </>
+    <header className="bg-slate-900 h-20">
+    <div className="container h-full mx-auto flex justify-start items-center">
+      <Link to="/" className="text-2xl text-white">
+        Cyber Movie
+      </Link>
+      <Link to="/home" className="text-white px-2">Home</Link>
+      <Link to="/about" className="text-white px-2">About</Link>
+      <Link to="/contact" className="text-white px-2">Contact</Link>
+     
+    </div>
+  </header>
   );
 }
