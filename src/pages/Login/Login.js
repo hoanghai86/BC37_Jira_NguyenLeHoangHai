@@ -23,11 +23,15 @@ export default function Login(props) {
 
       //chuyển đến trang chỉ định sau khi xử lý
       //chuyển hướng đến path tương ứng
-      props.history.push('/home');
+      // props.history.push("/home");
 
       //thay đổi nội dung path tương ứng
-      props.history.replace('/home');
+      // props.history.replace("/home");
 
+      //trả về trang trước đó khi đăng nhập thành công
+      props.history.goBack();
+
+      localStorage.setItem("userLogin", JSON.stringify(userLogin));
     } else {
       alert("Login fail !");
       return;

@@ -13,6 +13,7 @@ export default function Header() {
           <NavLink to="/about" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">About</NavLink>
           <NavLink to="/contact" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Contact</NavLink>
           <NavLink to="/login" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Login</NavLink>
+          <NavLink to="/profile" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline ">Profile</NavLink>
         </Nav>
       </div>
     </Navbar>
