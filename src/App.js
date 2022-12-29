@@ -9,6 +9,8 @@ import Detail from "./pages/Detail/Detail";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import Profile from "./pages/Profile/Profile";
 import "bootstrap/dist/css/bootstrap.min.css";
+import TodolistRFC from "./pages/Todolist/TodolistRFC";
+import TodolistRCC from "./pages/Todolist/TodolistRCC";
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/detail/:id" component={Detail} />
         <Route exact path="/profile" component={Profile} />
+        <Route exact path="/todolistrfc" component={TodolistRFC} />
+        <Route exact path="/todolistrcc" component={TodolistRCC} />
+
         <Route exact path="/" component={Home} />
         <Route path="*" component={PageNotFound}/>  {/* đá về trang thông báo 404 khi user gõ bậy bạ trên link web */}
       </Switch>

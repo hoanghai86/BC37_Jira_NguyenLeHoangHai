@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { Prompt } from "react-router-dom";
 
 export default function Login(props) {
   const [userLogin, setUserLogin] = useState({ userName: "", passWord: "" });
 
-  console.log(userLogin);
+  // console.log(userLogin);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserLogin({
@@ -62,6 +63,7 @@ export default function Login(props) {
       <div className="form-group">
         <button className="btn btn-success">Đăng nhập</button>
       </div>
+
     </form>
   );
 }
