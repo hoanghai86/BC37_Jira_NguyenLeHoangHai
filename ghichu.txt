@@ -5,6 +5,8 @@ npm i styled-component
 npm i axios
 npm i react-router-dom
 npm i antd
+npm i fromik
+npm i yup
 npm i tailwindcss
 npm i redux-saga
 npm i redux-thunk

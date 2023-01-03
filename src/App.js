@@ -20,7 +20,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
       </Routes> */}
-      <Header />
+      {/* <Header /> */}
       <Switch>
         <Route exact path="/home" component={Home} />
         <Route exact path="/contact" component={Contact} />
