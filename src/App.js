@@ -11,6 +11,9 @@ import Profile from "./pages/Profile/Profile";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TodolistRFC from "./pages/Todolist/TodolistRFC";
 import TodolistRCC from "./pages/Todolist/TodolistRCC";
+import {HomeTemplate} from './templates/HomeTemplate/HomeTemplate'
+import { UserLoginTemplate } from "./templates/HomeTemplate/UserLoginTemplate";
+import LoginCyberBugs from "./pages/CyberBugs/LoginCyberBugs/LoginCyberBugs";
 
 function App() {
   return (
@@ -20,19 +23,19 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
       </Routes> */}
-      <Header />
+      {/* <Header /> */}
       <Switch>
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/contact" component={Contact} />
-        <Route exact path="/about" component={About} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/detail/:id" component={Detail} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/todolistrfc" component={TodolistRFC} />
-        <Route exact path="/todolistrcc" component={TodolistRCC} />
+        <HomeTemplate exact path="/home" Component={Home} />
+        <HomeTemplate exact path="/contact" Component={Contact} />
+        <HomeTemplate exact path="/about" Component={About} />
+        <UserLoginTemplate exact path="/login" Component={LoginCyberBugs} />
+        <HomeTemplate exact path="/detail/:id" Component={Detail} />
+        <HomeTemplate exact path="/profile" Component={Profile} />
+        <HomeTemplate exact path="/todolistrfc" Component={TodolistRFC} />
+        <HomeTemplate exact path="/todolistrcc" Component={TodolistRCC} />
 
-        <Route exact path="/" component={Home} />
-        <Route path="*" component={PageNotFound}/>  {/* đá về trang thông báo 404 khi user gõ bậy bạ trên link web */}
+        <HomeTemplate exact path="/" Component={Home} />
+        <HomeTemplate path="*" Component={PageNotFound}/>  {/* đá về trang thông báo 404 khi user gõ bậy bạ trên link web */}
       </Switch>
     </BrowserRouter>
   );
