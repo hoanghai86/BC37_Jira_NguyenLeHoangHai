@@ -5,7 +5,14 @@ import style from "./Todolist.css";
 export default class TodolistRCC extends Component {
   state = {
     taskList: [],
+    values:{
+      taskName:'',
+    },
+    errors:{
+      taskName:''
+    }
   };
+
   getTaskList = () => {
     let promise = Axios({
       url: "https://svcy.myclass.vn/api/ToDoList/GetAllTask",
@@ -63,16 +70,68 @@ export default class TodolistRCC extends Component {
     });
   };
 
+  //Hàm sẽ tự động thực thi sau khi nội dung component được render
+  componentDidMount(){
+    this.getTaskList();
+  }
+
+  handleChange = (e) =>{
+    let{value, name} = e.target;
+    // console.log(value, name);
+    let newValues = {...this.state.values};
+
+    newValues = {...newValues,[name]:value}
+
+    let newErrors = {...this.state.errors};
+
+    let regexString = /^[a-z A-Z]+$/;
+
+    if(!regexString.test(value) || value.trim()===''){
+      newErrors[name] = name + ' invalid !';
+    }else{
+      newErrors[name] = '';
+    }
+
+
+    this.setState({
+      ...this.state,
+      values: newValues,
+      errors: newErrors,
+    })
+  }
+
+  addTask=(e)=>{
+    e.preventDefault(); //Dừng sự kiện submit form
+
+   let promise = Axios({
+      url: "https://svcy.myclass.vn/api/ToDoList/AddTask",
+      method:"POST",
+      data: {taskName:this.state.values.taskName}
+    });
+    console.log(promise.data)
+
+    //Xử lý thành công
+    promise.then(result=>{
+      // alert(result.data);
+      this.getTaskList();
+    })
+
+    //Xử lý thất bại
+    promise.catch(errors =>{
+      alert(errors.response.data)
+    })
+  }
+
   render() {
     return (
-      <div>
-        <button
+      <form onSubmit={this.addTask}>
+        {/* <button
           onClick={() => {
             this.getTaskList();
           }}
         >
           Get task list
-        </button>
+        </button> */}
         <div className="card">
           <div className="card__header">
             <img src={require("./bg.png")} />
@@ -85,15 +144,17 @@ export default class TodolistRCC extends Component {
                 <p>September 9,2020</p>
               </div>
               <div className="card__add">
-                <input
+                <input name="taskName" onChange={this.handleChange}
                   id="newTask"
                   type="text"
                   placeholder="Enter an activity..."
                 />
-                <button id="addItem">
+                
+                <button id="addItem" onClick={this.addTask}>
                   <i className="fa fa-plus" />
-                </button>
+                </button>             
               </div>
+              <p className="text-red-600">{this.state.errors.taskName}</p>
               <div className="card__todo">
                 {/* Uncompleted tasks */}
                 <ul className="todo" id="todo">
@@ -120,7 +181,7 @@ export default class TodolistRCC extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     );
   }
 }
