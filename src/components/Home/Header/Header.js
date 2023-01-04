@@ -18,6 +18,7 @@ export default function Header() {
           <NavDropdown title="Bài tập">
             <NavLink to="/todolistrfc" className="text-black px-2 hover:text-white hover:bg-gray-700 hover:no-underline flex items-center">To do list RFC</NavLink>
             <NavLink to="/todolistrcc" className="text-black px-2 hover:text-white hover:bg-gray-700 hover:no-underline flex items-center">To do list RCC</NavLink>          
+            <NavLink to="/todolistredux" className="text-black px-2 hover:text-white hover:bg-gray-700 hover:no-underline flex items-center">To do list redux</NavLink>          
           </NavDropdown>
 
         </Nav>
