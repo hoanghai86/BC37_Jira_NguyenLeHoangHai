@@ -1,25 +1,28 @@
 import React, { Component } from "react";
-import Axios from "axios";
+import axios from "axios";
 import style from "./Todolist.css";
+
 
 export default class TodolistRCC extends Component {
   state = {
     taskList: [],
-    values:{
-      taskName:'',
+    values: {
+      taskName: "",
     },
-    errors:{
-      taskName:''
-    }
+    errors: {
+      taskName: "",
+    },
   };
 
   getTaskList = () => {
-    let promise = Axios({
+    let promise = axios({
       url: "https://svcy.myclass.vn/api/ToDoList/GetAllTask",
       method: "GET",
     });
     promise.then((result) => {
       console.log(result.data);
+      //Nếu gọi hàm API lấy về kết quả thành công
+      //=> set lại state của component
       this.setState({
         taskList: result.data,
       });
@@ -38,10 +41,21 @@ export default class TodolistRCC extends Component {
           <li key={index}>
             <span>{item.taskName}</span>
             <div className="buttons">
-              <button className="remove">
+              <button
+                className="remove"
+                onClick={() => {
+                  this.delTask(item.taskName);
+                }}
+              >
                 <i className="fa fa-trash-alt" />
               </button>
-              <button className="complete">
+              <button
+                type="button"
+                className="complete"
+                onClick={() => {
+                  this.checkTask(item.taskName);
+                }}
+              >
                 <i className="far fa-check-circle" />
                 <i className="fas fa-check-circle" />
               </button>
@@ -52,75 +66,135 @@ export default class TodolistRCC extends Component {
   };
 
   renderTaskToDoDone = () => {
-    return this.state.taskList.filter(item=>item.status).map((item,index)=>{
-      return (
-        <li key={index}>
-          <span>{item.taskName}</span>
-          <div className="buttons">
-            <button className="remove">
-              <i className="fa fa-trash-alt" />
-            </button>
-            <button className="complete">
-              <i className="far fa-check-circle" />
-              <i className="fas fa-check-circle" />
-            </button>
-          </div>
-        </li>
-      );
+    return this.state.taskList
+      .filter((item) => item.status)
+      .map((item, index) => {
+        return (
+          <li key={index}>
+            <span>{item.taskName}</span>
+            <div className="buttons">
+              <button
+                className="remove"
+                type="button"
+                onClick={() => {
+                  this.delTask(item.taskName);
+                }}
+              >
+                <i className="fa fa-trash-alt" />
+              </button>
+              <button type="button" className="complete" onClick={()=>{
+                this.rejectTask(item.taskName);
+              }}>
+                <i className="far fa-check-circle" />
+                <i className="fas fa-undo" />
+              </button>
+            </div>
+          </li>
+        );
+      });
+  };
+
+  //Xử lý reject task
+  rejectTask = (taskName) => {
+    let promise = axios({
+      url: `https://svcy.myclass.vn/api/ToDoList/rejectTask?taskName=${taskName}`,
+      method: "PUT",
+    });
+
+    promise.then((res) => {
+      alert(res.data);
+      this.getTaskList();
+    });
+
+    promise.catch((err) => {
+      alert(err.response.data);
+    });
+  }
+
+  //Xử lý done task
+  checkTask = (taskName) => {
+    let promise = axios({
+      url: `https://svcy.myclass.vn/api/ToDoList/doneTask?taskName=${taskName}`,
+      method: "PUT",
+    });
+
+    promise.then((res) => {
+      alert(res.data);
+      this.getTaskList();
+    });
+
+    promise.catch((err) => {
+      alert(err.response.data);
+    });
+  };
+
+  //hàm xử lý xóa task
+  delTask = (taskName) => {
+    let promise = axios({
+      url: `https://svcy.myclass.vn/api/ToDoList/deleteTask?taskName=${taskName}`,
+      method: "DELETE",
+    });
+
+    promise.then((result) => {
+      alert(result.data);
+      this.getTaskList();
+    });
+
+    promise.catch((errors) => {
+      alert(errors.reponse.data);
     });
   };
 
   //Hàm sẽ tự động thực thi sau khi nội dung component được render
-  componentDidMount(){
+  componentDidMount() {
     this.getTaskList();
   }
 
-  handleChange = (e) =>{
-    let{value, name} = e.target;
+  handleChange = (e) => {
+    let { value, name } = e.target;
     // console.log(value, name);
-    let newValues = {...this.state.values};
+    let newValues = { ...this.state.values };
 
-    newValues = {...newValues,[name]:value}
+    newValues = { ...newValues, [name]: value };
 
-    let newErrors = {...this.state.errors};
+    let newErrors = { ...this.state.errors };
 
     let regexString = /^[a-z A-Z]+$/;
 
-    if(!regexString.test(value) || value.trim()===''){
-      newErrors[name] = name + ' invalid !';
-    }else{
-      newErrors[name] = '';
+    if (!regexString.test(value) || value.trim() === "") {
+      newErrors[name] = name + " invalid !";
+    } else {
+      newErrors[name] = "";
     }
-
 
     this.setState({
       ...this.state,
       values: newValues,
       errors: newErrors,
-    })
-  }
+    });
+  };
 
-  addTask=(e)=>{
+  addTask = (e) => {
     e.preventDefault(); //Dừng sự kiện submit form
 
-   let promise = Axios({
+    let promise = axios({
       url: "https://svcy.myclass.vn/api/ToDoList/AddTask",
-      method:"POST",
-      data: {taskName:this.state.values.taskName}
+      method: "POST",
+      data: { taskName: this.state.values.taskName },
     });
-    console.log(promise.data)
+    console.log(promise.data);
 
     //Xử lý thành công
-    promise.then(result=>{
+    promise.then((result) => {
       // alert(result.data);
       this.getTaskList();
-    })
+    });
 
     //Xử lý thất bại
-    promise.catch(errors =>{
-      alert(errors.response.data)
-    })
-  }
+    promise.catch((errors) => {
+      alert(errors.response.data);
+    });
+  };
 
   render() {
     return (
@@ -144,15 +218,17 @@ export default class TodolistRCC extends Component {
                 <p>September 9,2020</p>
               </div>
               <div className="card__add">
-                <input name="taskName" onChange={this.handleChange}
+                <input
+                  name="taskName"
+                  onChange={this.handleChange}
                   id="newTask"
                   type="text"
                   placeholder="Enter an activity..."
                 />
-                
+
                 <button id="addItem" onClick={this.addTask}>
                   <i className="fa fa-plus" />
-                </button>             
+                </button>
               </div>
               <p className="text-red-600">{this.state.errors.taskName}</p>
               <div className="card__todo">
