@@ -42,6 +42,7 @@ export default class TodolistRCC extends Component {
             <span>{item.taskName}</span>
             <div className="buttons">
               <button
+                type="button"
                 className="remove"
                 onClick={() => {
                   this.delTask(item.taskName);

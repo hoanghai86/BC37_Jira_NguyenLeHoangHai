@@ -55,9 +55,79 @@ export default function TodolistRFC(props) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const addTask = (e) => {
     e.preventDefault(); //chặn sự kiện reload lại trang
+    
+    let promise = axios({
+      url: "https://svcy.myclass.vn/api/ToDoList/AddTask",
+      method: "POST",
+      data: { taskName: state.values.taskName },
+    });
+
+    //Xử lý thành công
+    promise.then((result) => {
+      // alert(result.data);
+      getTaskList();
+    });
+
+    //Xử lý thất bại
+    promise.catch((errors) => {
+      alert(errors.response.data);
+    });
   };
+
+    //Xử lý reject task
+    const rejectTask = (taskName) => {
+      let promise = axios({
+        url: `https://svcy.myclass.vn/api/ToDoList/rejectTask?taskName=${taskName}`,
+        method: "PUT",
+      });
+  
+      promise.then((res) => {
+        alert(res.data);
+        getTaskList();
+      });
+  
+      promise.catch((err) => {
+        alert(err.response.data);
+      });
+    }
+  
+    //Xử lý done task
+    const checkTask = (taskName) => {
+      let promise = axios({
+        url: `https://svcy.myclass.vn/api/ToDoList/doneTask?taskName=${taskName}`,
+        method: "PUT",
+      });
+  
+      promise.then((res) => {
+        alert(res.data);
+        getTaskList();
+      });
+  
+      promise.catch((err) => {
+        alert(err.response.data);
+      });
+    };
+  
+    //hàm xử lý xóa task
+    const delTask = (taskName) => {
+      let promise = axios({
+        url: `https://svcy.myclass.vn/api/ToDoList/deleteTask?taskName=${taskName}`,
+        method: "DELETE",
+      });
+  
+      promise.then((result) => {
+        alert(result.data);
+        getTaskList();
+      });
+  
+      promise.catch((errors) => {
+        alert(errors.reponse.data);
+      });
+    };
+  
+
 
   useEffect(() => {
     getTaskList();
@@ -72,9 +142,10 @@ export default function TodolistRFC(props) {
             <span>{item.taskName}</span>
             <div className="buttons">
               <button
+                type="button"
                 className="remove"
                 onClick={() => {
-                  // delTask(item.taskName);
+                  delTask(item.taskName);
                 }}
               >
                 <i className="fa fa-trash-alt" />
@@ -83,7 +154,7 @@ export default function TodolistRFC(props) {
                 type="button"
                 className="complete"
                 onClick={() => {
-                  // checkTask(item.taskName);
+                  checkTask(item.taskName);
                 }}
               >
                 <i className="far fa-check-circle" />
@@ -107,7 +178,7 @@ export default function TodolistRFC(props) {
                 className="remove"
                 type="button"
                 onClick={() => {
-                  // delTask(item.taskName);
+                  delTask(item.taskName);
                 }}
               >
                 <i className="fa fa-trash-alt" />
@@ -116,7 +187,7 @@ export default function TodolistRFC(props) {
                 type="button"
                 className="complete"
                 onClick={() => {
-                  // rejectTask(item.taskName);
+                  rejectTask(item.taskName);
                 }}
               >
                 <i className="far fa-check-circle" />
@@ -135,7 +206,7 @@ export default function TodolistRFC(props) {
           <img src={require("./bg.png")} />
         </div>
         {/* <h2>hello!</h2> */}
-        <form className="card__body" onSubmit={handleSubmit}>
+        <form className="card__body" onSubmit={addTask}>
           <div className="card__content">
             <div className="card__title">
               <h2>My Tasks</h2>
@@ -149,7 +220,7 @@ export default function TodolistRFC(props) {
                 placeholder="Enter an activity..."
                 onChange={handleChange}
               />
-              <button id="addItem">
+              <button id="addItem" type="submit" onClick={addTask}>
                 <i className="fa fa-plus" />
               </button>
             </div>
