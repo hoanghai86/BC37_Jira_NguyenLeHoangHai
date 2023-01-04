@@ -3,6 +3,7 @@ import { Button, Input } from "antd";
 import { UserOutlined, LockOutlined, FacebookOutlined, TwitterOutlined } from "@ant-design/icons";
 import {withFormik} from "formik";
 import * as Yup from "yup";
+import {connect} from "react-redux";
 
 function LoginCyberBugs(props) {
 
@@ -47,11 +48,12 @@ const LoginCyberBugsWithFormik = withFormik({
     password:Yup.string().min(6,'password must have min 6 characters').max(32,'password have max 32 characters')
   }),
 
-  handleSubmit: (values, { setSubmitting }) => {
+  handleSubmit: (values, {props, setSubmitting }) => {
+    console.log(props);
     console.log(values);
   },
 
   displayName: 'Login CyberBugs',
 })(LoginCyberBugs);
 
-export default LoginCyberBugsWithFormik;
+export default connect ()(LoginCyberBugsWithFormik);
