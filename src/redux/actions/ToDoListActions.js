@@ -1,50 +1,73 @@
 import axios from "axios";
 import { GET_TASK_API } from "../constants/ToDoListConst";
 
+//Action có 2 loại
+//Action thực thi ngay làm thay đổi reducer (action 1)
+//Action phải thực hiện xử lý rồi mới gọi action 1 thực thi (async action)
+
 export const getTaskListApi = () => {
   //tiền xử lý dữ liệu => xử lý function
 
-  return (dispatch) => {
-    let promise = axios({
-      url: "https://svcy.myclass.vn/api/ToDoList/GetAllTask",
-      method: "GET",
-    });
-    promise.then((result) => {
-      console.log(result.data);
-
-      dispatch({
-        type: GET_TASK_API,
-        taskList: result.data,
+  return async (dispatch) => {
+    try {
+      let { data, status } = await axios({
+        url: "https://svcy.myclass.vn/api/ToDoList/GetAllTask",
+        method: "GET",
       });
 
-      console.log("thành công");
-    });
-    promise.catch((err) => {
-      console.log("thất bại");
+      if (status === 200) {
+        dispatch({
+          type: GET_TASK_API,
+          taskList: data,
+        });
+      }
+    } catch (err) {
       console.log(err.response.data);
-    });
+    }
+
+    // promise.then((result) => {
+    //   console.log(result.data);
+
+    //   dispatch({
+    //     type: GET_TASK_API,
+    //     taskList: result.data,
+    //   });
+
+    //   console.log("thành công");
+    // });
+    // promise.catch((err) => {
+    //   console.log("thất bại");
+    //   console.log(err.response.data);
+    // });
   };
 };
 
 export const addTaskApi = (taskName) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     //Xử lý trước khi dispatch
-    let promise = axios({
-      url: "https://svcy.myclass.vn/api/ToDoList/AddTask",
-      method: "POST",
-      data: { taskName: taskName },
-    });
+    try {
+      let { data, status } = await axios({
+        url: "https://svcy.myclass.vn/api/ToDoList/AddTask",
+        method: "POST",
+        data: { taskName: taskName },
+      });
+      if (status === 200) {
+        dispatch(getTaskListApi());
+      }
+    } catch (err) {
+      console.log(err.response.data);
+    }
 
-    //Xử lý thành công
-    promise.then((result) => {
-      // alert(result.data);
-      dispatch(getTaskListApi());
-    });
+    // //Xử lý thành công
+    // promise.then((result) => {
+    //   // alert(result.data);
+    //   dispatch(getTaskListApi());
+    // });
 
-    //Xử lý thất bại
-    promise.catch((errors) => {
-      alert(errors.response.data);
-    });
+    // //Xử lý thất bại
+    // promise.catch((errors) => {
+    //   alert(errors.response.data);
+    // });
   };
 };
 
@@ -84,18 +107,18 @@ export const checkTaskApi = (taskName) => {
 };
 
 export const rejectTaskApi = (taskName) => {
-  return (dispatch) =>{
+  return (dispatch) => {
     let promise = axios({
       url: `https://svcy.myclass.vn/api/ToDoList/rejectTask?taskName=${taskName}`,
       method: "PUT",
     });
-  
+
     promise.then((res) => {
       dispatch(getTaskListApi());
     });
-  
+
     promise.catch((err) => {
       alert(err.response.data);
     });
-  }
+  };
 };
