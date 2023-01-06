@@ -7,7 +7,6 @@ import createMiddleWareSaga from "redux-saga";
 import { rootSaga } from "./sagas/rootSaga";
 const middleWareSaga = createMiddleWareSaga();
 
-
 const rootReducer = combineReducers({
   //reducer khai báo tại đây
   ToDoListReducer,

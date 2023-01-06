@@ -15,6 +15,7 @@ import {HomeTemplate} from './templates/HomeTemplate/HomeTemplate'
 import { UserLoginTemplate } from "./templates/HomeTemplate/UserLoginTemplate";
 import LoginCyberBugs from "./pages/CyberBugs/LoginCyberBugs/LoginCyberBugs";
 import ToDoListRedux from "./pages/Todolist/ToDoListRedux";
+import BaiTapToDoListSaga from "./pages/BaiTapToDoListSaga/BaiTapToDoListSaga";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/todolistrfc" component={TodolistRFC} />
         <Route exact path="/todolistrcc" component={TodolistRCC} />
         <Route exact path="/todolistredux" component={ToDoListRedux} />
+        <Route exact path="/todolistsaga" component={BaiTapToDoListSaga} />
 
 
         <Route exact path="/" component={Home} />
