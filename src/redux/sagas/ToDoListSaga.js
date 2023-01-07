@@ -8,11 +8,22 @@ Loai 2: action trả về 1 function (thường dùng để xử lý API hoặc 
 */
 
 function* getTaskApiAction(action) {
+  //put giống dispatch action
+  yield put({
+    type: "DISPLAY_LOADING",
+  });
+
+  yield delay(1000);
+
   let { data, status } = yield call(toDoListService.getTaskApi);
   //sau khi lấy giá trị thành công, dùng PUT (giống dispatch bên Thunk)
   yield put({
     type: GET_TASK_API,
     taskList: data,
+  });
+
+  yield put({
+    type: "HIDE_LOADING",
   });
 }
 

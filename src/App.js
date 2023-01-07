@@ -16,6 +16,7 @@ import { UserLoginTemplate } from "./templates/HomeTemplate/UserLoginTemplate";
 import LoginCyberBugs from "./pages/CyberBugs/LoginCyberBugs/LoginCyberBugs";
 import ToDoListRedux from "./pages/Todolist/ToDoListRedux";
 import BaiTapToDoListSaga from "./pages/BaiTapToDoListSaga/BaiTapToDoListSaga";
+import LoadingComponent from "./components/GlobalSetting/LoadingComponent/LoadingComponent";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/about" element={<About />} />
       </Routes> */}
       <Header />
+      <LoadingComponent />
       <Switch>
         <Route exact path="/home" component={Home} />
         <Route exact path="/contact" component={Contact} />
