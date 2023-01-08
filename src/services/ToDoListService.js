@@ -10,6 +10,37 @@ export class ToDoListService {
       method: "GET",
     });
   };
+
+  addTaskApi = (taskName) => {
+    return axios({
+      url: `${DOMAIN}/ToDoList/addTask`,
+      method: "POST",
+      data:{
+        taskName: taskName,
+      }
+    });
+  }
+
+  deleteTaskApi = (taskName)=>{
+    return axios({
+      url: `${DOMAIN}/ToDoList/deleteTask?taskName=${taskName}`,
+      method: "DELETE",
+    });
+  }
+
+  checkDoneTask = (taskName)=>{
+        return axios({
+      url: `${DOMAIN}/ToDoList/doneTask?taskName=${taskName}`,
+      method: "PUT",
+    });
+  }
+
+  rejectTask = (taskName)=>{
+    return axios({
+      url: `${DOMAIN}/ToDoList/rejectTask?taskName=${taskName}`,
+      method: "PUT",
+    });
+  }
 }
 
 

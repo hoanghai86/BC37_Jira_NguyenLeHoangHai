@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { ADD_TASK_API, CHECK_TASK_API, DELETE_TASK_API, GET_TASKLIST_API, REJECT_TASK_API } from "../../redux/constants/ToDoListConst";
 
 export default function BaiTapToDoListSaga(props) {
   const dispatch = useDispatch();
@@ -44,21 +45,41 @@ export default function BaiTapToDoListSaga(props) {
   const getTaskList = () => {
     //Dispatch action saga
     dispatch({
-      type: "getTaskApiAction",
-      data: "abc",
+      type: GET_TASKLIST_API,
     })
   };
 
-  const addTask = (e) => {};
+  const addTask = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: ADD_TASK_API, 
+      taskName: state.values.taskName
+    });
+  };
 
   //Xử lý reject task
-  const rejectTask = (taskName) => {};
+  const rejectTask = (taskName) => {
+    dispatch({
+      type: REJECT_TASK_API,
+      taskName: taskName
+    });
+  };
 
   //Xử lý done task
-  const checkTask = (taskName) => {};
+  const checkTask = (taskName) => {
+    dispatch({
+      type: CHECK_TASK_API,
+      taskName: taskName
+    });
+  };
 
   //hàm xử lý xóa task
-  const delTask = (taskName) => {};
+  const delTask = (taskName) => {
+    dispatch({
+      type: DELETE_TASK_API,
+      taskName: taskName
+    })
+  };
 
   useEffect(() => {
     //Gọi hàm getTaskList
