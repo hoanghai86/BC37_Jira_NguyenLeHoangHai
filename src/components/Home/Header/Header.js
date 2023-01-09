@@ -14,6 +14,7 @@ export default function Header() {
           <NavLink to="/contact" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline flex items-center">Contact</NavLink>
           <NavLink to="/login" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline flex items-center">Login</NavLink>
           <NavLink to="/profile" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline flex items-center">Profile</NavLink>
+          <NavLink to="/demohocmodal" activeStyle={{fontWeight:"bold", background:"white", color: "black"}} className="text-slate-50 px-2 hover:text-gray-400 hover:no-underline flex items-center">Demo HOC</NavLink>
 
           <NavDropdown title="Bài tập">
             <NavLink to="/todolistrfc" className="text-black px-2 hover:text-white hover:bg-gray-700 hover:no-underline flex items-center">To do list RFC</NavLink>

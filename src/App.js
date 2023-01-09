@@ -17,6 +17,8 @@ import LoginCyberBugs from "./pages/CyberBugs/LoginCyberBugs/LoginCyberBugs";
 import ToDoListRedux from "./pages/Todolist/ToDoListRedux";
 import BaiTapToDoListSaga from "./pages/BaiTapToDoListSaga/BaiTapToDoListSaga";
 import LoadingComponent from "./components/GlobalSetting/LoadingComponent/LoadingComponent";
+import DemoHOCModal from "./pages/DemoHOCModal/DemoHOCModal";
+import Modal from "./HOC/Modal/Modal";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route path="/about" element={<About />} />
       </Routes> */}
       <Header />
+      <Modal />
       <LoadingComponent />
       <Switch>
         <Route exact path="/home" component={Home} />
@@ -39,6 +42,7 @@ function App() {
         <Route exact path="/todolistrcc" component={TodolistRCC} />
         <Route exact path="/todolistredux" component={ToDoListRedux} />
         <Route exact path="/todolistsaga" component={BaiTapToDoListSaga} />
+        <Route exact path="/demohocmodal" component={DemoHOCModal} />
 
 
         <Route exact path="/" component={Home} />
