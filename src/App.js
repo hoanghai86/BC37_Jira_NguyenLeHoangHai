@@ -18,7 +18,7 @@ import ToDoListRedux from "./pages/Todolist/ToDoListRedux";
 import BaiTapToDoListSaga from "./pages/BaiTapToDoListSaga/BaiTapToDoListSaga";
 import LoadingComponent from "./components/GlobalSetting/LoadingComponent/LoadingComponent";
 import DemoHOCModal from "./pages/DemoHOCModal/DemoHOCModal";
-import Modal from "./HOC/Modal/Modal";
+
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         <Route path="/about" element={<About />} />
       </Routes> */}
       <Header />
-      <Modal />
+
       <LoadingComponent />
       <Switch>
         <Route exact path="/home" component={Home} />
