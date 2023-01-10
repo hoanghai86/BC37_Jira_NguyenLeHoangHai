@@ -27,7 +27,7 @@ function LoginCyberBugs(props) {
         className="d-flex flex-col justify-center items-center"
         style={{ height: window.innerHeight }}
       >
-        <h3 className="text-center mb-3">{props.displayName}</h3>
+        <h3 className="text-center mb-3">Login Cyberbugs</h3>
         <div className="d-flex flex-col">
           <Input
             onChange={handleChange}
