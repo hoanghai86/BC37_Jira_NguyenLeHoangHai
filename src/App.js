@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Route, Routes, Switch } from "react-router-dom"; //sử dụng thư viện này để chuyển qua lại các components
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Router, Routes, Switch, useHistory } from "react-router-dom"; //sử dụng thư viện này để chuyển qua lại các components
 import Header from "./components/Home/Header/Header";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
@@ -18,11 +18,21 @@ import ToDoListRedux from "./pages/Todolist/ToDoListRedux";
 import BaiTapToDoListSaga from "./pages/BaiTapToDoListSaga/BaiTapToDoListSaga";
 import LoadingComponent from "./components/GlobalSetting/LoadingComponent/LoadingComponent";
 import DemoHOCModal from "./pages/DemoHOCModal/DemoHOCModal";
-import ModalHOC from "./HOC/Modal/Modal"
+import ModalHOC from "./HOC/Modal/Modal";
+import { useDispatch } from "react-redux";
 
 function App() {
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({type:'ADD_HISTORY', history: history});
+    return () => {};
+  }, []);
+
   return (
-    <BrowserRouter>
+    <>
       {/* <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
@@ -32,7 +42,6 @@ function App() {
 
       <ModalHOC />
       <LoadingComponent />
-
 
       <Switch>
         <HomeTemplate path="/home" exact Component={Home} />
@@ -44,14 +53,17 @@ function App() {
         <HomeTemplate exact path="/todolistrfc" Component={TodolistRFC} />
         <HomeTemplate exact path="/todolistrcc" Component={TodolistRCC} />
         <HomeTemplate exact path="/todolistredux" Component={ToDoListRedux} />
-        <HomeTemplate exact path="/todolistsaga" Component={BaiTapToDoListSaga} />
+        <HomeTemplate
+          exact
+          path="/todolistsaga"
+          Component={BaiTapToDoListSaga}
+        />
         <HomeTemplate exact path="/demohocmodal" Component={DemoHOCModal} />
-
         <HomeTemplate exact path="/" Component={Home} />
         <HomeTemplate path="*" Component={PageNotFound} />{" "}
         {/* đá về trang thông báo 404 khi user gõ bậy bạ trên link web */}
       </Switch>
-    </BrowserRouter>
+    </>
   );
 }
 

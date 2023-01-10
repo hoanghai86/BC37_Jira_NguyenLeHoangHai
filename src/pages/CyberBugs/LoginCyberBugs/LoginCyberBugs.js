@@ -13,7 +13,10 @@ import { USER_SIGNIN_API } from "../../../redux/constants/Cyberbugs/Cyberbugs";
 import { signinCyberbugAction } from "../../../redux/actions/CyberBugsAction";
 
 function LoginCyberBugs(props) {
-  // console.log(props)
+  
+  console.log(props)
+
+
   const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
     props;
 

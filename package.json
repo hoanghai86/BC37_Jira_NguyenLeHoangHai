@@ -10,6 +10,7 @@
     "axios": "^1.2.1",
     "bootstrap": "^4.6.0",
     "formik": "^2.2.9",
+    "history": "^4.10.0",
     "moment": "^2.29.4",
     "node-sass": "^7.0.3",
     "react-bootstrap": "^2.7.0",
