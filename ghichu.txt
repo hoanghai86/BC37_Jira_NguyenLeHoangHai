@@ -8,6 +8,7 @@ npm i antd
 npm i fromik
 npm i yup
 npm i tailwindcss
+npm i bootstrap@4.6.0
 npm i redux-saga
 npm i redux-thunk
 npm i moment
