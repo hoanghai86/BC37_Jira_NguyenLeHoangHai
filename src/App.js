@@ -22,6 +22,8 @@ import ModalHOC from "./HOC/Modal/Modal";
 import { useDispatch } from "react-redux";
 import { CyberbugsTemplate } from "./templates/HomeTemplate/CyberbugsTemplate";
 import indexCyberBugs from "./redux/sagas/Cyberbugs/indexCyberBugs";
+import ModalCyberBugs from "./components/Cyberbugs/ModalCyberBugs/ModalCyberBugs";
+import CreateProject from "./pages/CyberBugs/CreateProject/CreateProject";
 
 function App() {
 
@@ -62,6 +64,7 @@ function App() {
         />
         <HomeTemplate exact path="/demohocmodal" Component={DemoHOCModal} />
         <CyberbugsTemplate exact path="/cyberbugs" Component={indexCyberBugs} />
+        <CyberbugsTemplate exact path="/createProject" Component={CreateProject} />
 
         <HomeTemplate exact path="/" Component={Home} />
         <HomeTemplate path="*" Component={PageNotFound} />{" "}

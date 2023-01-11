@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import ModalCyberBugs from "../ModalCyberBugs/ModalCyberBugs";
 
 export default function ContentMain() {
+  // const dispatch = useDispatch();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
+
   return (
+    <>
       <div className="content" style={{ display: "flex" }}>
         <div className="card" style={{ width: "17rem", height: "26rem" }}>
           <div className="card-header">BACKLOG 3</div>
@@ -11,6 +22,7 @@ export default function ContentMain() {
               data-toggle="modal"
               data-target="#infoModal"
               style={{ cursor: "pointer" }}
+              onClick={handleShow}
             >
               <p>
                 Each issue has a single reporter but can have multiple assignees
@@ -23,10 +35,10 @@ export default function ContentMain() {
                 <div className="block-right">
                   <div className="avatar-group" style={{ display: "flex" }}>
                     <div className="avatar">
-                      <img src={require("../../../assets/img/download (1).jfif")}  />
+                      <img src={require("../../../assets/img/download (1).jfif")} alt=""/>
                     </div>
                     <div className="avatar">
-                      <img src={require("../../../assets/img/download (2).jfif")}  />
+                      <img src={require("../../../assets/img/download (2).jfif")} alt=""/>
                     </div>
                   </div>
                 </div>
@@ -44,10 +56,10 @@ export default function ContentMain() {
                 <div className="block-right">
                   <div className="avatar-group" style={{ display: "flex" }}>
                     <div className="avatar">
-                      <img src={require("../../../assets/img/download (1).jfif")}  />
+                      <img src={require("../../../assets/img/download (1).jfif")} alt=""/>
                     </div>
                     <div className="avatar">
-                      <img src={require("../../../assets/img/download (2).jfif")}  />
+                      <img src={require("../../../assets/img/download (2).jfif")} alt=""/>
                     </div>
                   </div>
                 </div>
@@ -79,5 +91,8 @@ export default function ContentMain() {
           </ul>
         </div>
       </div>
+
+      <ModalCyberBugs show={show} handleClose={handleClose}/>
+    </>
   );
 }
