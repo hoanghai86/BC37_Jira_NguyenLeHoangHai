@@ -20,6 +20,8 @@ import LoadingComponent from "./components/GlobalSetting/LoadingComponent/Loadin
 import DemoHOCModal from "./pages/DemoHOCModal/DemoHOCModal";
 import ModalHOC from "./HOC/Modal/Modal";
 import { useDispatch } from "react-redux";
+import { CyberbugsTemplate } from "./templates/HomeTemplate/CyberbugsTemplate";
+import indexCyberBugs from "./redux/sagas/Cyberbugs/indexCyberBugs";
 
 function App() {
 
@@ -59,6 +61,8 @@ function App() {
           Component={BaiTapToDoListSaga}
         />
         <HomeTemplate exact path="/demohocmodal" Component={DemoHOCModal} />
+        <CyberbugsTemplate exact path="/cyberbugs" Component={indexCyberBugs} />
+
         <HomeTemplate exact path="/" Component={Home} />
         <HomeTemplate path="*" Component={PageNotFound} />{" "}
         {/* đá về trang thông báo 404 khi user gõ bậy bạ trên link web */}

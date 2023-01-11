@@ -13,11 +13,11 @@ body {
   } */
   
   .card {
-    margin: 50px auto;
+    /* margin: 50px auto; */
     background-color: #f5f8f9;
     /* height: 430px; */
     width: 350px;
-    box-shadow: 0 0 6px grey;
+    /* box-shadow: 0 0 6px grey; */
     overflow: hidden;
     line-height: 2rem;
     letter-spacing: 1px;

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/index.css" />
+    <!-- FONT AWESOME -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js"></script>
+    <!-- GOOGLE FONT -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- BOOTSTRAP -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- BODY -->
+    <div class="jira">
+      <!-- Sider Bar  -->
+      <div class="sideBar">
+        <div class="sideBar-top">
+          <div class="sideBar-icon">
+            <i class="fab fa-jira"></i>
+          </div>
+          <div
+            class="sideBar-icon"
+            data-toggle="modal"
+            data-target="#searchModal"
+            style="cursor: pointer;"
+          >
+            <i class="fa fa-search"></i>
+            <span class="title">SEARCH ISSUES</span>
+          </div>
+          <div class="sideBar-icon">
+            <i class="fa fa-plus"></i>
+            <span class="title">CREATE ISSUES</span>
+          </div>
+        </div>
+        <div class="sideBar-bottom">
+          <div class="sideBar-icon">
+            <i class="fa fa-question-circle"></i>
+            <span class="title">ABOUT</span>
+          </div>
+        </div>
+      </div>
+      <!-- Menu -->
+      <div class="menu">
+        <div class="account">
+          <div class="avatar">
+            <img src="./assets/img/download.jfif" alt="" />
+          </div>
+          <div class="account-info">
+            <p>CyberLearn.vn</p>
+            <p>Report bugs</p>
+          </div>
+        </div>
+        <div class="control">
+          <div>
+            <i class="fa fa-credit-card"></i>
+            <span>Cyber Board</span>
+          </div>
+          <div>
+            <i class="fa fa-cog"></i>
+            <span>Project Settings</span>
+          </div>
+        </div>
+        <div class="feature">
+          <div>
+            <i class="fa fa-truck"></i>
+            <span>Releases</span>
+          </div>
+          <div>
+            <i class="fa fa-equals"></i>
+            <span>Issues and filters</span>
+          </div>
+          <div>
+            <i class="fa fa-paste"></i>
+            <span>Pages</span>
+          </div>
+          <div>
+            <i class="fa fa-location-arrow"></i>
+            <span>Reports</span>
+          </div>
+          <div>
+            <i class="fa fa-box"></i>
+            <span>Components</span>
+          </div>
+        </div>
+      </div>
+      <!-- {/* {/* Main Board * /} */} -->
+      <div class="main">
+        <div class="header">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background-color: white;">
+              <li class="breadcrumb-item">Project</li>
+              <li class="breadcrumb-item">CyberLearn</li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Cyber Board
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <h3>Cyber Board</h3>
+        <div class="info" style="display: flex;">
+          <div class="search-block">
+            <input class="search" />
+            <i class="fa fa-search"></i>
+          </div>
+          <div class="avatar-group" style="display: flex;">
+            <div class="avatar">
+              <img src="./assets/img/download (1).jfif" alt="" />
+            </div>
+            <div class="avatar">
+              <img src="./assets/img/download (2).jfif" alt="" />
+            </div>
+            <div class="avatar">
+              <img src="./assets/img/download (3).jfif" alt="" />
+            </div>
+          </div>
+          <div style="margin-left: 20px;" class="text">Only My Issues</div>
+          <div style="margin-left: 20px;" class="text">Recently Updated</div>
+        </div>
+        <div class="content" style="display: flex;">
+          <div class="card" style="width: 17rem; height: 25rem;">
+            <div class="card-header">
+              BACKLOG 3
+            </div>
+            <ul class="list-group list-group-flush">
+              <li
+                class="list-group-item"
+                data-toggle="modal"
+                data-target="#infoModal"
+                style="cursor: pointer;"
+              >
+                <p>
+                  Each issue has a single reporter but can have multiple
+                  assignees
+                </p>
+                <div class="block" style="display: flex;">
+                  <div class="block-left">
+                    <i class="fa fa-bookmark"></i>
+                    <i class="fa fa-arrow-up"></i>
+                  </div>
+                  <div class="block-right">
+                    <div class="avatar-group" style="display: flex;">
+                      <div class="avatar">
+                        <img src="./assets/img/download (1).jfif" alt="" />
+                      </div>
+                      <div class="avatar">
+                        <img src="./assets/img/download (2).jfif" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <p>
+                  Each issue has a single reporter but can have multiple
+                  assignees
+                </p>
+                <div class="block" style="display: flex;">
+                  <div class="block-left">
+                    <i class="fa fa-check-square"></i>
+                    <i class="fa fa-arrow-up"></i>
+                  </div>
+                  <div class="block-right">
+                    <div class="avatar-group" style="display: flex;">
+                      <div class="avatar">
+                        <img src="./assets/img/download (1).jfif" alt="" />
+                      </div>
+                      <div class="avatar">
+                        <img src="./assets/img/download (2).jfif" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+          </div>
+          <div class="card" style="width: 17rem; height: 25rem;">
+            <div class="card-header">
+              SELECTED FOR DEVELOPMENT 2
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+            </ul>
+          </div>
+          <div class="card" style="width: 17rem; height: 25rem;">
+            <div class="card-header">
+              IN PROGRESS 2
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+            </ul>
+          </div>
+          <div class="card" style="width: 17rem; height: 25rem;">
+            <div class="card-header">
+              DONE 3
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+              <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div
+      class="modal fade"
+      id="searchModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="searchModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-search">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="search-block">
+              <input class="search" />
+              <i class="fa fa-search"></i>
+            </div>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>RECENT ISSUES</p>
+            <div style="display: flex;">
+              <div class="icon">
+                <i class="fa fa-bookmark"></i>
+              </div>
+              <div>
+                <p>cyberlearn</p>
+                <p>BUG-238066</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div
+      class="modal fade"
+      id="infoModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="infoModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-info">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="task-title">
+              <i class="fa fa-bookmark"></i>
+              <span>TASK-217871</span>
+            </div>
+            <div style="display: flex;" class="task-click">
+              <div>
+                <i class="fab fa-telegram-plane"></i>
+                <span style="padding-right: 20px;">Give feedback</span>
+              </div>
+              <div>
+                <i class="fa fa-link"></i>
+                <span style="padding-right: 20px;">Copy link</span>
+              </div>
+              <i class="fa fa-trash-alt" style="cursor: pointer;"></i>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-8">
+                  <p class="issue">This is an issue of type: Task.</p>
+                  <div class="description">
+                    <p>Description</p>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Esse expedita quis vero tempora error sed reprehenderit
+                      sequi laborum, repellendus quod laudantium tenetur nobis
+                      modi reiciendis sint architecto. Autem libero quibusdam
+                      odit assumenda fugiat? Beatae aliquid labore vitae
+                      obcaecati sapiente asperiores quia amet id aut, natus quo
+                      molestiae quod voluptas, temporibus iusto laudantium sit
+                      tempora sequi. Rem, itaque id, fugit magnam asperiores
+                      voluptas consectetur aliquid vel error illum, delectus eum
+                      eveniet laudantium at repudiandae!
+                    </p>
+                  </div>
+                  <div style="font-weight: 500; margin-bottom: 10px;">
+                    Jira Software (software projects) issue types:
+                  </div>
+                  <div class="title">
+                    <div class="title-item">
+                      <h3>BUG <i class="fa fa-bug"></i></h3>
+                      <p>
+                        A bug is a problem which impairs or prevents the
+                        function of a product.
+                      </p>
+                    </div>
+                    <div class="title-item">
+                      <h3>STORY <i class="fa fa-book-reader"></i></h3>
+                      <p>
+                        A user story is the smallest unit of work that needs to
+                        be done.
+                      </p>
+                    </div>
+                    <div class="title-item">
+                      <h3>TASK <i class="fa fa-tasks"></i></h3>
+                      <p>A task represents work that needs to be done</p>
+                    </div>
+                  </div>
+                  <div class="comment">
+                    <h6>Comment</h6>
+                    <div class="block-comment" style="display: flex;">
+                      <div class="avatar">
+                        <img src="./assets/img/download (1).jfif" alt="" />
+                      </div>
+                      <div class="input-comment">
+                        <input type="text" placeholder="Add a comment ..." />
+                        <p>
+                          <span style="font-weight: 500; color: gray;"
+                            >Protip:</span
+                          >
+                          <span
+                            >press
+                            <span
+                              style="
+                                font-weight: bold;
+                                background: #ecedf0;
+                                color: #b4bac6;
+                              "
+                              >M</span
+                            >
+                            to comment</span
+                          >
+                        </p>
+                      </div>
+                    </div>
+                    <div class="lastest-comment">
+                      <div class="comment-item">
+                        <div class="display-comment" style="display: flex;">
+                          <div class="avatar">
+                            <img src="./assets/img/download (1).jfif" alt="" />
+                          </div>
+                          <div>
+                            <p style="margin-bottom: 5px;">
+                              Lord Gaben <span>a month ago</span>
+                            </p>
+                            <p style="margin-bottom: 5px;">
+                              Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Repellendus tempora ex
+                              voluptatum saepe ab officiis alias totam ad
+                              accusamus molestiae?
+                            </p>
+                            <div>
+                              <span style="color: #929398;">Edit</span>
+                              •
+                              <span style="color: #929398;">Delete</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="status">
+                    <h6>STATUS</h6>
+                    <select class="custom-select">
+                      <option selected>SELECTED FOR DEVELOPMENT</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="assignees">
+                    <h6>ASSIGNEES</h6>
+                    <div style="display: flex;">
+                      <div style="display: flex;" class="item">
+                        <div class="avatar">
+                          <img src="./assets/img/download (1).jfif" alt="" />
+                        </div>
+                        <p class="name">
+                          Pickle Rick
+                          <i class="fa fa-times" style="margin-left: 5px;"></i>
+                        </p>
+                      </div>
+                      <div style="display: flex; align-items: center;">
+                        <i class="fa fa-plus" style="margin-right: 5px;"></i
+                        ><span>Add more</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="reporter">
+                    <h6>REPORTER</h6>
+                    <div style="display: flex;" class="item">
+                      <div class="avatar">
+                        <img src="./assets/img/download (1).jfif" alt="" />
+                      </div>
+                      <p class="name">
+                        Pickle Rick
+                        <i class="fa fa-times" style="margin-left: 5px;"></i>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="priority" style="margin-bottom: 20px;">
+                    <h6>PRIORITY</h6>
+                    <select>
+                      <option>Highest</option>
+                      <option>Medium</option>
+                      <option>Low</option>
+                      <option>Lowest</option>
+                    </select>
+                  </div>
+                  <div class="estimate">
+                    <h6>ORIGINAL ESTIMATE (HOURS)</h6>
+                    <input type="text" class="estimate-hours" />
+                  </div>
+                  <div class="time-tracking">
+                    <h6>TIME TRACKING</h6>
+                    <div style="display: flex;">
+                      <i class="fa fa-clock"></i>
+                      <div style="width: 100%;">
+                        <div class="progress">
+                          <div
+                            class="progress-bar"
+                            role="progressbar"
+                            style="width: 25%;"
+                            aria-valuenow="25"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                          ></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                          <p class="logged">4h logged</p>
+                          <p class="estimate-time">12h estimated</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="color: #929398;">Create at a month ago</div>
+                  <div style="color: #929398;">Update at a few seconds ago</div>
+                </div>
+              </div>
+            </div>
+          </div>         
+        </div>
+      </div>
+    </div>
+    <!-- BOOTSTRAP -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
