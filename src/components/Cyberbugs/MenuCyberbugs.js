@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export default function MenuCyberbugs() {
   return (
@@ -13,13 +14,13 @@ export default function MenuCyberbugs() {
         </div>
       </div>
       <div className="control">
-        <div>
-          <i className="fa fa-credit-card" />
-          <span className="ml-2">Cyber Board</span>
+        <div className="hover:bg-gray-300">
+          <i className="fa fa-credit-card mr-2" />
+          <NavLink to="/cyberbugs" style={{color:"#212529"}} className="text-sm" activeClassName="font-semibold">Cyber Board</NavLink>
         </div>
-        <div>
-          <i className="fa fa-cog" />
-          <span className="ml-2">Project Settings</span>
+        <div className="hover:bg-gray-300">
+          <i className="fa fa-cog mr-2" />
+          <NavLink to="/createProject" style={{color:"#212529"}} className="text-sm" activeClassName="font-semibold">Create Project</NavLink>
         </div>
       </div>
       <div className="feature">
