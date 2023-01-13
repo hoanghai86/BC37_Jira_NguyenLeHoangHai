@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DOMAIN_CYBERBUG } from "../util/constants/settingSystem";
+import { CYBERSOFT_TOKEN, DOMAIN_CYBERBUG, TOKEN } from "../util/constants/settingSystem";
 // const { default: Axios } = require("axios");
 
 export const cyberbugsService = {
@@ -7,7 +7,20 @@ export const cyberbugsService = {
     return axios({
       url: `${DOMAIN_CYBERBUG}/Users/signin`,
       method: "POST",
-      data: userLogin
+      data: userLogin,
+    });
+  },
+
+  //lấy danh sách project
+  getAllProjectCategory: () => {
+    const TokenCybersoft = localStorage.getItem(TOKEN);
+    return axios({
+      url: `${DOMAIN_CYBERBUG}/ProjectCategory`,
+      method: "GET",
+      headers: {
+        // TokenCybersoft: TokenCybersoft,
+        TokenCybersoft: CYBERSOFT_TOKEN,
+      }
     });
   },
 };
