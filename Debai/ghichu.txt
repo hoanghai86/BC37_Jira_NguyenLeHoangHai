@@ -15,4 +15,5 @@ npm i moment
 npm i sass-loader
 npm i node-sass
 npm i history@4.10.0
+npm install --save @tinymce/tinymce-react
 ...

@@ -12,13 +12,13 @@ import InfoMain from "../../components/Cyberbugs/Main/InfoMain";
 
 export const CyberbugsTemplate = (props) => {
   const { Component, ...restParam } = props;
-  console.log(Component);
-  console.log(restParam);
+  // console.log(Component);
+  // console.log(restParam);
   return (
     <Route
       {...restParam}
       render={(propsRoute) => {
-        console.log(propsRoute);
+        // console.log(propsRoute);
         return (
           <div className="jira">
             <SidebarCyberbugs />
