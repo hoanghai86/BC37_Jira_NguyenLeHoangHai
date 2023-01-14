@@ -12,7 +12,7 @@ import {
 import { cyberbugsService } from "../../../services/CyberbugsServices";
 import { USER_SIGNIN_API, USLOGIN } from "../../constants/Cyberbugs/Cyberbugs";
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../constants/LoadingConst";
-import { TOKEN, USER_LOGIN } from "../../../util/constants/settingSystem";
+import { CYBERSOFT_TOKEN, TOKEN, USER_LOGIN } from "../../../util/constants/settingSystem";
 import { history } from "../../../util/history";
 
 //Quản lý các action saga
@@ -30,6 +30,7 @@ function* signinSaga(action) {
     );
     //Lưu vào local storage
     localStorage.setItem(TOKEN, data.content.accessToken);
+    localStorage.setItem("CYBERSOFT_TOKEN",CYBERSOFT_TOKEN);
     localStorage.setItem(USER_LOGIN, JSON.stringify(data.content));
 
     yield put({

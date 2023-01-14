@@ -72,7 +72,9 @@ function CreateProject(props) {
 }
 
 const createProjectForm = withFormik({
-  mapPropsToValues: () => ({}),
+  mapPropsToValues: () => ({
+    
+  }),
 
   validationSchema: Yup.object().shape({
    
