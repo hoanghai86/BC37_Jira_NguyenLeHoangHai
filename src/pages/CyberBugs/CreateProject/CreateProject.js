@@ -69,7 +69,7 @@ function CreateProject(props) {
             })}
           </select>
         </div>
-        <button className="btn btn-outline-primary" type="submit">
+        <button className="btn btn-primary" type="submit">
           Create Project
         </button>
       </form>

@@ -1,52 +1,26 @@
-import React, { useState } from "react";
-import { Button, Space, Table } from "antd";
+import React, { useState, useEffect } from "react";
+import { Button, Space, Table, Tag } from "antd";
 import parse from "html-react-parser";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-
-const data = [
-  {
-    id: 10450,
-    projectName: "new Project 1",
-    description: "new Project 1",
-    categoryId: 1,
-    categoryName: "Dự án web",
-    alias: "new-project-1",
-    deleted: false,
-  },
-  {
-    id: 10455,
-    projectName: "new project 2",
-    description: "456",
-    categoryId: 1,
-    categoryName: "Dự án web",
-    alias: "new-project-2",
-    deleted: false,
-  },
-  {
-    id: 10456,
-    projectName: "new project 3",
-    description: "<p>333</p>",
-    categoryId: 1,
-    categoryName: "Dự án web",
-    alias: "new-project-3",
-    deleted: false,
-  },
-  {
-    id: 10457,
-    projectName: "new project 4",
-    description: "<p>4</p>",
-    categoryId: 1,
-    categoryName: "Dự án web",
-    alias: "new-project-4",
-    deleted: false,
-  },
-];
+import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function ProjectManagement() {
+  //Lấy dữ liệu từ reducer về component
+  const projectList = useSelector(
+    (state) => state.ProjectCyberBugsReducer.projectList
+  );
+
+  //sử dụng useDispatch để gọi action
+  const dispath = useDispatch();
+
   const [state, setState] = useState({
     filteredInfo: null,
     sortedInfo: null,
   });
+
+  useEffect(() => {
+    dispath({ type: "GET_LIST_PROJECT_SAGA" });
+  },[]);
 
   const handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
@@ -92,30 +66,49 @@ export default function ProjectManagement() {
       dataIndex: "projectName",
       key: "projectName",
     },
+    // {
+    //   title: "description",
+    //   dataIndex: "description",
+    //   key: "description",
+    //   render: (text, record, index) => {
+    //     let jsxContent = parse(text);
+    //     return <div key={index}>{jsxContent}</div>;
+    //   },
+    // },
     {
-      title: "description",
-      dataIndex: "description",
-      key: "description",
-      render: (text, record, index) => {
-        let jsxContent = parse(text);
-        return <div key={index}>{jsxContent}</div>;
-      },
+      title: "category",
+      dataIndex: "categoryName",
+      key: "categoryName",
+    },
+    {
+      title: "creator",
+      // dataIndex: "creator",
+      key: "creator",
+      render:(text,record,index)=>{
+        // console.log(record);
+        return <Tag color="green">{record.creator?.name}</Tag>
+      }
     },
     {
       title: "Action",
       key: "action",
       render: (text, record, index) => (
         <Space size="middle">
-          <a
+          <button
+            className="btn btn-primary"
             onClick={() => {
               //delete(record.id)
             }}
           >
-            <EditOutlined />
-          </a>
-          <a>
+            <FormOutlined />
+          </button>
+
+          <button className="btn btn-danger"
+            onClick={() => {
+              //delete(record.id)
+            }}>
             <DeleteOutlined />
-          </a>
+          </button>
         </Space>
       ),
     },
@@ -129,14 +122,20 @@ export default function ProjectManagement() {
           marginBottom: 16,
         }}
       >
-        <Button onClick={setAgeSort}>Sort age</Button>
-        <Button onClick={clearFilters}>Clear filters</Button>
-        <Button onClick={clearAll}>Clear filters and sorters</Button>
+        <Button onClick={setAgeSort} type="primary">
+          Sort age
+        </Button>
+        <Button onClick={clearFilters} type="primary">
+          Clear filters
+        </Button>
+        <Button onClick={clearAll} type="primary">
+          Clear filters and sorters
+        </Button>
       </Space>
       <Table
         columns={columns}
         rowKey={"id"}
-        dataSource={data}
+        dataSource={projectList}
         onChange={handleChange}
       />
     </div>

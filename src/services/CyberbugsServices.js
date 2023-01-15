@@ -34,4 +34,19 @@ export const cyberbugsService = {
       },
     });
   },
+
+  //get all project lên table
+  getListProject:()=>{
+    return axios({
+      url:`${DOMAIN_CYBERBUG}/Project/getAllProject`,
+      method: "GET",
+      headers: {
+        //token yêu cầu từ backend chứng minh user đã đăng nhập rồi
+        // Authorization: "Bearer " + localStorage.getItem(TOKEN),
+
+        //token trung tâm cấp cho học viên Cybersoft
+        TokenCybersoft: localStorage.getItem("CYBERSOFT_TOKEN"),
+      },
+    })
+  }
 };

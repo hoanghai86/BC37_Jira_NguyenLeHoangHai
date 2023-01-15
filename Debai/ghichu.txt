@@ -27,9 +27,14 @@ Luồng đi tạo project (video số 37):
 Gắn tiếp file này vào rootsaga
 (Ghi chú: lỗi 401 là lỗi không hợp lệ)
 
-Luồng đi tạo component quản lý project
+Luồng đi tạo component quản lý project (video 39)
 1/ tạo trong thư mục pages:  pages ->  ProjectManagement -> ProjectManagement.js
 2/ Thêm component vào App
 3/ thiết kế 1 cái link cho nó trong giao diện: src -> components -> Cyberbugs -> MenuCyberbugs
- 
-
+4/ vào antd copy component table bỏ vào ProjectManagement.js để test thử giao diện
+5/ tạo reducer: ProjectCyberBugsReducer (có projectList), sau đó import nó vào rootreducer là file: sagas -> configStore.js
+6/ vào ProjectManagement.js, dùng useSelector để lấy projectList về để render lại component
+7/ vào sagas -> Cyberbugs -> ProjectSaga.js (nhớ gắn file này vào rootSaga): 
+    - tạo theoDoiGetListProjectSaga để lắng nghe action saga khi component dispatch action lên
+    - tạo getListProjectSaga để call API và dispatch action thường lên lưu trên reducer
+8/ vào lại ProjectCyberBugsReducer để gắn switch case "GET_LIST_PROJECT"
