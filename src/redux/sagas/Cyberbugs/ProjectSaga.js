@@ -17,7 +17,7 @@ function* createProjectSaga(action) {
   //gọi api lấy dữ liệu về
   try {
     const { data, status } = yield call(() =>
-      cyberbugsService.createProject(action.newProject)
+      cyberbugsService.createProjectAuthorization(action.newProject)
     );
 
     //Gọi api thành công thì dispath lên reducer thông qua put

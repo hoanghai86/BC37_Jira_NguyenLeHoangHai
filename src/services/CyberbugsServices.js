@@ -23,13 +23,13 @@ export const cyberbugsService = {
   },
 
   //tạo project
-  createProject: (newProject) => {
+  createProjectAuthorization: (newProject) => {
     return axios({
-      url: `${DOMAIN_CYBERBUG}/Project/createProject`,
+      url: `${DOMAIN_CYBERBUG}/Project/createProjectAuthorize`,
       method: "POST",
       data: newProject,
       headers: {
-        TOKEN: "Bearer "+ localStorage.getItem("TOKEN"),
+        Authorization: "Bearer " + localStorage.getItem(TOKEN),
         TokenCybersoft: localStorage.getItem("CYBERSOFT_TOKEN"),
       },
     });

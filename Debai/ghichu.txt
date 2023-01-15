@@ -23,5 +23,6 @@ Luồng đi tạo project (video số 37):
 2/ Xây dựng action của Saga để theo dõi dispatch và tiến hành chạy services API: sagas -> Cyberbugs -> ProjectSaga.js
 3/ Gửi thông tin người dùng nhập vào xuống backend thông qua API của saga: vào services -> CyberbugsServices.js
 Gắn tiếp file này vào rootsaga
+(Ghi chú: lỗi 401 là lỗi không hợp lệ)
  
 
