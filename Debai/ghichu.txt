@@ -16,6 +16,8 @@ npm i sass-loader
 npm i node-sass
 npm i history@4.10.0
 npm install --save @tinymce/tinymce-react
+npm i html-react-parser
+npm install --save @ant-design/icons
 ...
 
 Luồng đi tạo project (video số 37):
@@ -24,5 +26,10 @@ Luồng đi tạo project (video số 37):
 3/ Gửi thông tin người dùng nhập vào xuống backend thông qua API của saga: vào services -> CyberbugsServices.js
 Gắn tiếp file này vào rootsaga
 (Ghi chú: lỗi 401 là lỗi không hợp lệ)
+
+Luồng đi tạo component quản lý project
+1/ tạo trong thư mục pages:  pages ->  ProjectManagement -> ProjectManagement.js
+2/ Thêm component vào App
+3/ thiết kế 1 cái link cho nó trong giao diện: src -> components -> Cyberbugs -> MenuCyberbugs
  
 

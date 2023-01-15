@@ -24,6 +24,7 @@ import { CyberbugsTemplate } from "./templates/HomeTemplate/CyberbugsTemplate";
 import indexCyberBugs from "./redux/sagas/Cyberbugs/indexCyberBugs";
 import ModalCyberBugs from "./components/Cyberbugs/ModalCyberBugs/ModalCyberBugs";
 import CreateProject from "./pages/CyberBugs/CreateProject/CreateProject";
+import ProjectManagement from "./pages/CyberBugs/ProjectManagement/ProjectManagement";
 
 function App() {
 
@@ -63,8 +64,10 @@ function App() {
           Component={BaiTapToDoListSaga}
         />
         <HomeTemplate exact path="/demohocmodal" Component={DemoHOCModal} />
+        
         <CyberbugsTemplate exact path="/cyberbugs" Component={indexCyberBugs} />
         <CyberbugsTemplate exact path="/createProject" Component={CreateProject} />
+        <CyberbugsTemplate exact path="/projectmanagement" Component={ProjectManagement} />
 
         <HomeTemplate exact path="/" Component={Home} />
         <HomeTemplate path="*" Component={PageNotFound} />{" "}

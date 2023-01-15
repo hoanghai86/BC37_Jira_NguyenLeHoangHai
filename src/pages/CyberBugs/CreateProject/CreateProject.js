@@ -25,7 +25,7 @@ function CreateProject(props) {
   };
 
   return (
-    <div className="container m-5">
+    <div className="container mt-4">
       <h3>Create Project</h3>
       <form className="container" onSubmit={handleSubmit} onChange={handleChange}>
         <div className="form-group">
