@@ -19,7 +19,7 @@ export default function MenuCyberbugs() {
           <NavLink to="/cyberbugs" style={{color:"#212529"}} className="text-sm" activeClassName="font-semibold">Cyber Board</NavLink>
         </div>
         <div className="hover:bg-gray-300">
-          <i className="fa fa-cog mr-2" />
+          <i className="fa fa-list mr-2" />
           <NavLink to="/projectmanagement" style={{color:"#212529"}} className="text-sm" activeClassName="font-semibold">Project Management</NavLink>
         </div>
         <div className="hover:bg-gray-300">
