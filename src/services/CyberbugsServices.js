@@ -18,7 +18,20 @@ export const cyberbugsService = {
       method: "GET",
       headers: {
         TokenCybersoft: localStorage.getItem("CYBERSOFT_TOKEN"),
-      }
+      },
+    });
+  },
+
+  //tạo project
+  createProject: (newProject) => {
+    return axios({
+      url: `${DOMAIN_CYBERBUG}/Project/createProject`,
+      method: "POST",
+      data: newProject,
+      headers: {
+        TOKEN: "Bearer "+ localStorage.getItem("TOKEN"),
+        TokenCybersoft: localStorage.getItem("CYBERSOFT_TOKEN"),
+      },
     });
   },
 };

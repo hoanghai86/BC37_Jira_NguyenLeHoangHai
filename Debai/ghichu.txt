@@ -17,3 +17,11 @@ npm i node-sass
 npm i history@4.10.0
 npm install --save @tinymce/tinymce-react
 ...
+
+Luồng đi tạo project (video số 37):
+1/ Vô components để dispatch lên saga: pages -> Cyberbugs -> CreateProject -> CreateProject.js
+2/ Xây dựng action của Saga để theo dõi dispatch và tiến hành chạy services API: sagas -> Cyberbugs -> ProjectSaga.js
+3/ Gửi thông tin người dùng nhập vào xuống backend thông qua API của saga: vào services -> CyberbugsServices.js
+Gắn tiếp file này vào rootsaga
+ 
+

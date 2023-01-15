@@ -5,27 +5,29 @@ import * as Yup from "yup";
 import { connect, useSelector, useDispatch } from "react-redux";
 
 function CreateProject(props) {
-
-  const arrProjectCategory = useSelector(state => state.ProjectCategoryReducer.arrProjectCategory);
-
+  const arrProjectCategory = useSelector(
+    (state) => state.ProjectCategoryReducer.arrProjectCategory
+  );
   const dispatch = useDispatch();
 
-  const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
+
+  const { values, touched, errors, handleChange, handleBlur, handleSubmit, setFieldValue } =
     props;
 
-  useEffect(()=>{
+
+  useEffect(() => {
     //Gọi api để lấy dữ liệu thẻ select
-    dispatch({type:"GET_ALL_PROJECT_CATEGORY_SAGA"});
-  },[]);
+    dispatch({ type: "GET_ALL_PROJECT_CATEGORY_SAGA" });
+  }, []);
 
   const handleEditorChange = (content, editor) => {
-
+    setFieldValue('description', content)
   };
 
   return (
     <div className="container m-5">
       <h3>Create Project</h3>
-      <form className="container" onSubmit={handleSubmit}>
+      <form className="container" onSubmit={handleSubmit} onChange={handleChange}>
         <div className="form-group">
           <p>Name</p>
           <input className="form-control" name="projectName" />
@@ -54,12 +56,16 @@ function CreateProject(props) {
           </>
         </div>
         <div className="form-group">
-          <select name="categoryId" className="form-control">
+          <select name="categoryId" className="form-control" onChange={handleChange}>
             {/* <option>Software</option>
             <option>Web</option>
             <option>App</option> */}
-            {arrProjectCategory.map((item, index)=>{
-              return <option value={item.id} key={index}>{item.projectCategoryName}</option>
+            {arrProjectCategory.map((item, index) => {
+              return (
+                <option value={item.id} key={index}>
+                  {item.projectCategoryName}
+                </option>
+              );
             })}
           </select>
         </div>
@@ -72,20 +78,34 @@ function CreateProject(props) {
 }
 
 const createProjectForm = withFormik({
-  mapPropsToValues: () => ({
-    
-  }),
+  enableReinitialize:true,
+  mapPropsToValues: (props) => {
 
-  validationSchema: Yup.object().shape({
-   
-  }),
+    console.log("props value",props);
+
+    return {
+      projectName: "",
+      description: "",
+      categoryId: props.arrProjectCategory[0]?.id
+    };
+  },
+
+  validationSchema: Yup.object().shape({}),
 
   handleSubmit: (values, { props, setSubmitting }) => {
-
+    props.dispatch({
+      type: "CREATE_PROJECT_SAGA",
+      newProject: values
+    })
   },
 
   displayName: "CreateProjectFormik",
 })(CreateProject);
 
+const mapStateToProps = (state) => ({
 
-export default connect()(createProjectForm);
+  arrProjectCategory: state.ProjectCategoryReducer.arrProjectCategory,
+
+});
+
+export default connect(mapStateToProps)(createProjectForm);
