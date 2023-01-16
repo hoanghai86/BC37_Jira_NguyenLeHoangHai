@@ -3,6 +3,7 @@ import { Button, Space, Table, Tag } from "antd";
 import parse from "html-react-parser";
 import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
+import FormEditProject from "../../../components/Forms/FormEditProject/FormEditProject";
 
 export default function ProjectManagement() {
   //Lấy dữ liệu từ reducer về component
@@ -20,7 +21,7 @@ export default function ProjectManagement() {
 
   useEffect(() => {
     dispath({ type: "GET_LIST_PROJECT_SAGA" });
-  },[]);
+  }, []);
 
   const handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
@@ -60,11 +61,23 @@ export default function ProjectManagement() {
       title: "id",
       dataIndex: "id",
       key: "id",
+      sorter: (item2, item1) => {
+        return item2.id - item1.id;
+      },
+      sortDirections: ["descend"],
     },
     {
       title: "projectName",
       dataIndex: "projectName",
       key: "projectName",
+      sorter: (item2, item1) => {
+        let projectName1 = item1.projectName?.trim().toLowerCase();
+        let projectName2 = item2.projectName?.trim().toLowerCase();
+        if (projectName2 < projectName1) {
+          return -1;
+        }
+        return 1;
+      },
     },
     // {
     //   title: "description",
@@ -79,15 +92,31 @@ export default function ProjectManagement() {
       title: "category",
       dataIndex: "categoryName",
       key: "categoryName",
+      sorter: (item2, item1) => {
+        let categoryName1 = item1.categoryName?.trim().toLowerCase();
+        let categoryName2 = item2.categoryName?.trim().toLowerCase();
+        if (categoryName2 < categoryName1) {
+          return -1;
+        }
+        return 1;
+      },
     },
     {
       title: "creator",
       // dataIndex: "creator",
       key: "creator",
-      render:(text,record,index)=>{
+      render: (text, record, index) => {
         // console.log(record);
-        return <Tag color="green">{record.creator?.name}</Tag>
-      }
+        return <Tag color="green">{record.creator?.name}</Tag>;
+      },
+      sorter: (item2, item1) => {
+        let creator1 = item1.creator?.name.trim().toLowerCase();
+        let creator2 = item2.creator?.name.trim().toLowerCase();
+        if (creator2 < creator1) {
+          return -1;
+        }
+        return 1;
+      },
     },
     {
       title: "Action",
@@ -97,16 +126,24 @@ export default function ProjectManagement() {
           <button
             className="btn btn-primary"
             onClick={() => {
-              //delete(record.id)
+              const action = {
+                type: "OPEN_FORM_EDIT_PROJECT",
+                Component: <FormEditProject />,
+              }
+
+              //dispatch lên reducer nội dung drawer
+              dispath(action);
             }}
           >
             <FormOutlined />
           </button>
 
-          <button className="btn btn-danger"
+          <button
+            className="btn btn-danger"
             onClick={() => {
               //delete(record.id)
-            }}>
+            }}
+          >
             <DeleteOutlined />
           </button>
         </Space>
