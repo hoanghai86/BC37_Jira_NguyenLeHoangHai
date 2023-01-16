@@ -10,6 +10,7 @@ export default function FormEditProject(props) {
     alert("submit edit");
   };
 
+  //componentDidMount
   useEffect(() => {
     dispatch({ type: "SET_SUBMIT_EDIT_PROJECT", submitFunction: submitForm });
   }, []);
