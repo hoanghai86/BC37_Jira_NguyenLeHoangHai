@@ -33,9 +33,9 @@ export default function DrawerCyberBugs(props) {
 
   return (
     <div>
-      <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
+      {/* <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
         New account
-      </Button>
+      </Button> */}
       <Drawer
         title="Create a new account"
         width={720}

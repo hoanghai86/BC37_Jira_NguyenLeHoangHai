@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Button, Space, Table, Tag } from "antd";
+import { Button, Space, Table, Tag, Popconfirm, message } from "antd";
 import parse from "html-react-parser";
 import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import FormEditProject from "../../../components/Forms/FormEditProject/FormEditProject";
+ 
 
 export default function ProjectManagement() {
   //Lấy dữ liệu từ reducer về component
@@ -12,7 +13,7 @@ export default function ProjectManagement() {
   );
 
   //sử dụng useDispatch để gọi action
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const [state, setState] = useState({
     filteredInfo: null,
@@ -20,7 +21,7 @@ export default function ProjectManagement() {
   });
 
   useEffect(() => {
-    dispath({ type: "GET_LIST_PROJECT_SAGA" });
+    dispatch({ type: "GET_LIST_PROJECT_SAGA" });
   }, []);
 
   const handleChange = (pagination, filters, sorter) => {
@@ -129,30 +130,38 @@ export default function ProjectManagement() {
               const action = {
                 type: "OPEN_FORM_EDIT_PROJECT",
                 Component: <FormEditProject />,
-              }
+              };
 
               //dispatch lên reducer nội dung drawer
-              dispath(action);
+              dispatch(action);
 
               //dispatch dữ liệu dòng hiện tại lên reducer
               const actionEditProject = {
                 type: "EDIT_PROJECT",
                 projectEditModel: record,
-              }
-              dispath(actionEditProject);
+              };
+              dispatch(actionEditProject);
             }}
           >
             <FormOutlined />
           </button>
 
-          <button
-            className="btn btn-danger"
-            onClick={() => {
-              //delete(record.id)
+          <Popconfirm
+            title="Delete the task"
+            description="Are you sure to delete this project?"
+            onConfirm={() => {
+              dispatch({ type: "DELETE_PROJECT_SAGA", idProject: record.id });
             }}
+            okText="Yes"
+            cancelText="No"
           >
-            <DeleteOutlined />
-          </button>
+            <button
+              className="btn btn-danger"
+              // onClick={}
+            >
+              <DeleteOutlined />
+            </button>
+          </Popconfirm>
         </Space>
       ),
     },

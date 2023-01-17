@@ -3,6 +3,8 @@ import { cyberbugsService } from "../../../services/CyberbugsServices";
 import { STATUS_CODE } from "../../../util/constants/settingSystem";
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../constants/LoadingConst";
 import { history } from "../../../util/history";
+import { projectService } from "../../../services/ProjectService";
+import { notifiFunction } from "../../../util/Notification/notificationCyberbugs";
 
 function* createProjectSaga(action) {
   console.log("create project action", action);
@@ -79,6 +81,7 @@ function* updateProjectSaga(action) {
     //Gọi api thành công thì dispath lên reducer thông qua put
     if (status === STATUS_CODE.SUCCESS) {
       // console.log(data);
+
       yield put({
         type: "GET_LIST_PROJECT_SAGA",
       });
@@ -97,4 +100,54 @@ function* updateProjectSaga(action) {
 
 export function* theoDoiUpdateProjectSaga() {
   yield takeLatest("UPDATE_PROJECT_SAGA", updateProjectSaga);
+}
+
+
+
+
+
+
+
+//DELETE PROJECT
+function* deleteProjectSaga(action) {
+  //hiển thị loading
+  yield put({
+    type: DISPLAY_LOADING,
+  });
+  yield delay(500);
+
+  //gọi api lấy dữ liệu về
+  try {
+    const { data, status } = yield call(() =>
+      projectService.deleteProject(action.idProject)
+    );
+
+    //Gọi api thành công thì dispath lên reducer thông qua put
+    if (status === STATUS_CODE.SUCCESS) {
+      console.log(data);
+
+      notifiFunction("success","Delete project successfuly !");
+
+      yield put({
+        type: "GET_LIST_PROJECT_SAGA",
+      });
+      yield put({
+        type: "CLOSE_DRAWER",
+      });
+    }else{
+      notifiFunction("success","Delete project fail !");
+    }
+
+  } catch (error) {
+    notifiFunction("success","Delete project fail !");
+    console.log(error);
+  }
+
+  yield put({
+    type: HIDE_LOADING,
+  });
+}
+
+export function* theoDoiDeleteProject() {
+  yield takeLatest("DELETE_PROJECT_SAGA", deleteProjectSaga);
 }
