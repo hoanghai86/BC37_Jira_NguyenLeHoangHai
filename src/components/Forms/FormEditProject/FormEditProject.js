@@ -71,7 +71,7 @@ function FormEditProject(props) {
         <div className="col-4">
           <div className="form-group">
             <p className="font-weight-bold">Category Id</p>
-            <select name="categoryId" value={values.categoryId}>
+            <select name="categoryId" value={values.categoryId} onChange={handleChange}>
               {arrProjectCategory?.map((item, index) => {
                 return (
                   <option key={index} value={item.id}>

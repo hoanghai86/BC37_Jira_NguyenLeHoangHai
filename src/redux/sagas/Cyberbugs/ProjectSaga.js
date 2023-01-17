@@ -78,7 +78,7 @@ function* updateProjectSaga(action) {
 
     //Gọi api thành công thì dispath lên reducer thông qua put
     if (status === STATUS_CODE.SUCCESS) {
-      console.log(data);
+      // console.log(data);
       yield put({
         type: "GET_LIST_PROJECT_SAGA",
       });
