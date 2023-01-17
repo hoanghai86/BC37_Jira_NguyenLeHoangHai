@@ -20,14 +20,11 @@ function* createProjectSaga(action) {
     );
 
     //Gọi api thành công thì dispath lên reducer thông qua put
-    if (status === STATUS_CODE.SUCCESS)
+    if (status === STATUS_CODE.SUCCESS) {
       console.log(data);
-
       //chuyển hướng trang
-      history.push('/projectmanagement');
-
-
-
+      history.push("/projectmanagement");
+    }
   } catch (error) {
     console.log(error);
   }
@@ -63,4 +60,41 @@ function* getListProjectSaga(action) {
 
 export function* theoDoiGetListProjectSaga() {
   yield takeLatest("GET_LIST_PROJECT_SAGA", getListProjectSaga);
+}
+
+//update project
+function* updateProjectSaga(action) {
+  //hiển thị loading
+  yield put({
+    type: DISPLAY_LOADING,
+  });
+  yield delay(500);
+
+  //gọi api lấy dữ liệu về
+  try {
+    const { data, status } = yield call(() =>
+      cyberbugsService.updateProject(action.projectUpdate)
+    );
+
+    //Gọi api thành công thì dispath lên reducer thông qua put
+    if (status === STATUS_CODE.SUCCESS) {
+      console.log(data);
+      yield put({
+        type: "GET_LIST_PROJECT_SAGA",
+      });
+      yield put({
+        type: "CLOSE_DRAWER",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  yield put({
+    type: HIDE_LOADING,
+  });
+}
+
+export function* theoDoiUpdateProjectSaga() {
+  yield takeLatest("UPDATE_PROJECT_SAGA", updateProjectSaga);
 }

@@ -133,6 +133,13 @@ export default function ProjectManagement() {
 
               //dispatch lên reducer nội dung drawer
               dispath(action);
+
+              //dispatch dữ liệu dòng hiện tại lên reducer
+              const actionEditProject = {
+                type: "EDIT_PROJECT",
+                projectEditModel: record,
+              }
+              dispath(actionEditProject);
             }}
           >
             <FormOutlined />

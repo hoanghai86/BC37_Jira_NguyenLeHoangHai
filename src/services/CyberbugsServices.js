@@ -48,5 +48,19 @@ export const cyberbugsService = {
         TokenCybersoft: localStorage.getItem("CYBERSOFT_TOKEN"),
       },
     })
+  },
+
+  //update project lên API
+  updateProject:(projectUpdate)=>{
+    return axios({
+      url:`${DOMAIN_CYBERBUG}/Project/updateProject?projectId=${projectUpdate.id}`,
+      method: "PUT",
+      data: projectUpdate,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem(TOKEN),
+        TokenCybersoft: localStorage.getItem("CYBERSOFT_TOKEN"),
+      },
+    })
   }
+
 };

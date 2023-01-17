@@ -47,4 +47,7 @@ Luồng đi tạo Modal của trang Project Management
 4/ Vào component DrawerCyberBugs, dùng useSelector để lấy biến visible từ state về, và muốn thay đổi biến này thì dùng hàm useDispatch. Biến visible = true thì modal mở lên, = false thì đóng lại
 -Lấy thêm ComponentContentDrawer về để show lên modal
 5/ Vào trang page -> ProjectManagement -> ProjectManagement.js để gắn sự kiện mở modal vào nút Edit của trang
-6/ tạo file Form -> FormEditProject -> FormEditProject.js để gắn vô file ProjectManagement.js cho nó dispatch lên reducer
+6/ tạo file Form -> FormEditProject -> FormEditProject.js để gắn vô file ProjectManagement.js cho nó dispatch lên reducer cái type: "SET_SUBMIT_EDIT_PROJECT"
+Lúc này Submit nằm ở component DrawerCyberBugs, nhưng form nằm ở component FormEditProject
+.....hết hiểu
+7/ ở file ProjectManagement, nút Edit, ta dispath(actionEditProject) chưa thông tin của record dự án lên ProjectReducer.js, sau đó FormEditProject lấy về hiển thị ra
