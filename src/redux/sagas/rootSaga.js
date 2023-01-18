@@ -16,6 +16,7 @@ export function* rootSaga() {
  
     //Nghiệp vụ Cyberbug...
     Cyberbugs.theoDoiSignin(),
+    Cyberbugs.theoDoiGetUser(),
     ProjectCategorySaga.theoDoiGetAllProjectCategory(),
     ProjectSaga.theoDoiCreateProjectSaga(),
     ProjectSaga.theoDoiGetListProjectSaga(),

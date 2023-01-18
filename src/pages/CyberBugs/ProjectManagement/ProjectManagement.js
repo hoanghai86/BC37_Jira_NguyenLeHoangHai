@@ -20,6 +20,9 @@ export default function ProjectManagement() {
   const projectList = useSelector(
     (state) => state.ProjectCyberBugsReducer.projectList
   );
+  const { userSearch } = useSelector(
+    (state) => state.UserLoginCyberBugsReducer
+  );
 
   //sử dụng useDispatch để gọi action
   const dispatch = useDispatch();
@@ -144,12 +147,35 @@ export default function ProjectManagement() {
             <Popover
               placement="rightTop"
               title={"Add User"}
-              content={()=>{
-                return <AutoComplete style={{width: "100%"}} placeholder="input here"/>
+              content={() => {
+                return (
+                  <AutoComplete
+                    options={userSearch?.map((user, index) => {
+                      return { label: user.name, value: user.userId };
+
+                    })}
+
+                    onSelect={(value,option)=>{
+                      console.log('user',value)
+                      console.log('option',option)
+                    }}
+
+                    style={{ width: "100%" }}
+                    placeholder="input here"
+                    onSearch={(value) => {
+                      dispatch({
+                        type: "GET_USER_API",
+                        keyWord: value,
+                      });
+                    }}
+                  />
+                );
               }}
               trigger="click"
             >
-              <Button size="small" shape="circle">+</Button>
+              <Button size="small" shape="circle">
+                +
+              </Button>
             </Popover>
           </div>
         );

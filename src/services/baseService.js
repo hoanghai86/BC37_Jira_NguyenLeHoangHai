@@ -31,6 +31,7 @@ export class baseService {
       url: `${DOMAIN_CYBERBUG}/${url}`,
       method: "GET",
       headers: {
+        Authorization: "Bearer " + localStorage.getItem(TOKEN),
         TokenCybersoft: localStorage.getItem("CYBERSOFT_TOKEN"),
       },
     });
