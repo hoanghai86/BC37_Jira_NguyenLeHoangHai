@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Button, Space, Table, Tag, Popconfirm, message } from "antd";
+import {
+  Button,
+  Space,
+  Table,
+  Tag,
+  Popconfirm,
+  message,
+  Avatar,
+  Popover,
+  AutoComplete,
+} from "antd";
 import parse from "html-react-parser";
-import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
+import { DeleteOutlined, FormOutlined, UserOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import FormEditProject from "../../../components/Forms/FormEditProject/FormEditProject";
- 
 
 export default function ProjectManagement() {
   //Lấy dữ liệu từ reducer về component
@@ -119,6 +128,34 @@ export default function ProjectManagement() {
         return 1;
       },
     },
+
+    {
+      title: "members",
+      key: "members",
+      render: (text, record, index) => {
+        return (
+          <div>
+            {record.members?.slice(0, 3).map((member, index) => {
+              return <Avatar key={index} src={member.avatar} />;
+            })}
+
+            {record.members?.length > 3 ? <Avatar>...</Avatar> : ""}
+
+            <Popover
+              placement="rightTop"
+              title={"Add User"}
+              content={()=>{
+                return <AutoComplete style={{width: "100%"}} placeholder="input here"/>
+              }}
+              trigger="click"
+            >
+              <Button size="small" shape="circle">+</Button>
+            </Popover>
+          </div>
+        );
+      },
+    },
+
     {
       title: "Action",
       key: "action",
