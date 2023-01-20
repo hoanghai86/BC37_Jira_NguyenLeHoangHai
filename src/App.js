@@ -72,8 +72,9 @@ function App() {
         <CyberbugsTemplate exact path="/cyberbugs" Component={indexCyberBugs} />
         <CyberbugsTemplate exact path="/createProject" Component={CreateProject} />
         <CyberbugsTemplate exact path="/projectmanagement" Component={ProjectManagement} />
+        <CyberbugsTemplate exact path="/projectdetail/:projectId" Component={indexCyberBugs} />
 
-        <HomeTemplate exact path="/" Component={Home} />
+        <CyberbugsTemplate exact path="/" Component={ProjectManagement} />
         <HomeTemplate path="*" Component={PageNotFound} />{" "}
         {/* đá về trang thông báo 404 khi user gõ bậy bạ trên link web */}
       </Switch>

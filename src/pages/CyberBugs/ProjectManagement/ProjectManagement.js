@@ -14,6 +14,7 @@ import parse from "html-react-parser";
 import { DeleteOutlined, FormOutlined, UserOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import FormEditProject from "../../../components/Forms/FormEditProject/FormEditProject";
+import { NavLink } from "react-router-dom";
 
 export default function ProjectManagement() {
   //Lấy dữ liệu từ reducer về component
@@ -87,6 +88,9 @@ export default function ProjectManagement() {
       title: "projectName",
       dataIndex: "projectName",
       key: "projectName",
+      render: (text, record, index) => {
+        return <NavLink to={`/projectdetail/${record.id}`}>{text}</NavLink>;
+      },
       sorter: (item2, item1) => {
         let projectName1 = item1.projectName?.trim().toLowerCase();
         let projectName2 = item2.projectName?.trim().toLowerCase();

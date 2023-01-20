@@ -6,6 +6,9 @@ const initialState = {
     description: "<h1>aaaaa</h1>",
     categoryId: "1",
   },
+  projectDetail: {
+
+  },
 };
 
 export const ProjectReducer = (state = initialState, action) => {
@@ -13,6 +16,9 @@ export const ProjectReducer = (state = initialState, action) => {
     case "EDIT_PROJECT": {
       state.projectEdit = action.projectEditModel;
       return { ...state };
+    }
+    case 'PUT_PROJECT_DETAIL':{
+      state.projectDetail = action.projectDetail;
     }
 
     default:
