@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Button,
   Space,
@@ -23,6 +23,10 @@ export default function ProjectManagement() {
   const { userSearch } = useSelector(
     (state) => state.UserLoginCyberBugsReducer
   );
+
+  const [value, setValue] = useState("");
+
+  const searchRef = useRef(null);
 
   //sử dụng useDispatch để gọi action
   const dispatch = useDispatch();
@@ -135,11 +139,76 @@ export default function ProjectManagement() {
     {
       title: "members",
       key: "members",
+      sorter: (item2, item1) => {
+        let member1 = item1.member?.name.trim().toLowerCase();
+        let member2 = item2.member?.name.trim().toLowerCase();
+        if (member2 < member1) {
+          return -1;
+        }
+        return 1;
+      },
       render: (text, record, index) => {
         return (
           <div>
             {record.members?.slice(0, 3).map((member, index) => {
-              return <Avatar key={index} src={member.avatar} />;
+              return (
+                <Popover
+                  key={index}
+                  placement="top"
+                  title="Members"
+                  content={() => {
+                    return (
+                      <table className="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {record.members?.map((item, index) => {
+                            return (
+                              <tr key={index}>
+                                <td>{item.userId}</td>
+                                <td>
+                                  <img
+                                    src={item.avatar}
+                                    width="30"
+                                    height="30"
+                                    className="rounded-lg"
+                                  />
+                                </td>
+                                <td>{item.name}</td>
+                                <td>
+                                  <button
+                                    onClick={() => {
+                                      dispatch({
+                                        type: "REMOVE_USER_PROJECT_API",
+                                        userProject: {
+                                          userId: item.userId,
+                                          projectId: record.id,
+                                        },
+                                      });
+                                    }}
+                                    type="button"
+                                    className="btn btn-warning text-white"
+                                  >
+                                    X
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    );
+                  }}
+                >
+                  <Avatar key={index} src={member.avatar} />
+                </Popover>
+              );
             })}
 
             {record.members?.length > 3 ? <Avatar>...</Avatar> : ""}
@@ -151,22 +220,39 @@ export default function ProjectManagement() {
                 return (
                   <AutoComplete
                     options={userSearch?.map((user, index) => {
-                      return { label: user.name, value: user.userId };
-
+                      return {
+                        label: user.name,
+                        value: user.userId.toString(),
+                      };
                     })}
-
-                    onSelect={(value,option)=>{
-                      console.log('user',value)
-                      console.log('option',option)
+                    value={value}
+                    onChange={(text) => {
+                      setValue(text);
                     }}
-
+                    onSelect={(valueSelect, option) => {
+                      //set giá trị của hộp thoại = obtion.label
+                      setValue(option.label);
+                      //gọi api gửi về backend
+                      dispatch({
+                        type: "ADD_USER_PROJECT_API",
+                        userProject: {
+                          projectId: record.id,
+                          userId: valueSelect,
+                        },
+                      });
+                    }}
                     style={{ width: "100%" }}
                     placeholder="input here"
                     onSearch={(value) => {
-                      dispatch({
-                        type: "GET_USER_API",
-                        keyWord: value,
-                      });
+                      if (searchRef.current) {
+                        clearTimeout(searchRef.current);
+                      }
+                      searchRef.current = setTimeout(() => {
+                        dispatch({
+                          type: "GET_USER_API",
+                          keyWord: value,
+                        });
+                      }, 700);
                     }}
                   />
                 );
