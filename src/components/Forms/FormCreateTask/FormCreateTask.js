@@ -22,7 +22,6 @@ export default function FormCreateTask(props) {
     (state) => state.UserLoginCyberBugsReducer
   );
 
-  console.log(userSearch);
   //Hàm biến đổi option cho thẻ select
   const userOptions = userSearch.map((item, index) => {
     return { value: item.userId, label: item.name };
