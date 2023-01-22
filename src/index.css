@@ -190,9 +190,15 @@
     margin-bottom: 20px;
   }
   
-  .main .info .search-block {
+  /* .main .info .search-block {
     position: relative;
+  } */
+
+  .info .search-block {
+    position: relative;
+    margin-right: 20px;
   }
+
   
   .main .info .search-block .search {
     height: 32px;
@@ -203,7 +209,14 @@
     padding-left: 32px;
   }
   
-  .main .info .search-block .fa-search {
+  /* .main .info .search-block .fa-search {
+    position: absolute;
+    left: 5%;
+    top: 15%;
+    color: #67748b;
+  } */
+
+  .info .search-block .fa-search {
     position: absolute;
     left: 5%;
     top: 15%;

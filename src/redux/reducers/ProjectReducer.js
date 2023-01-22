@@ -7,7 +7,7 @@ const initialState = {
     categoryId: "1",
   },
   projectDetail: {
-
+    members: [],
   },
 };
 
@@ -19,6 +19,7 @@ export const ProjectReducer = (state = initialState, action) => {
     }
     case 'PUT_PROJECT_DETAIL':{
       state.projectDetail = action.projectDetail;
+      return { ...state };
     }
 
     default:

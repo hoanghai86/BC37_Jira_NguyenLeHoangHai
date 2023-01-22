@@ -5,11 +5,12 @@ import InfoMain from "../../../components/Cyberbugs/Main/InfoMain";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function IndexCyberBugs(props) {
-  let { projectDetail } = useSelector((state) => state.ProjectReducer);
+  const { projectDetail } = useSelector((state) => state.ProjectReducer);
   const dispatch = useDispatch();
   console.log("projectDetail", projectDetail)
 
   useEffect(() => {
+    //Khi người dùng link qua trang này bằng thẻ Navlink hoặc người dùng tự gõ url thì ta sẽ lấy tham số từ url => gọi saga
     const { projectId } = props.match.params;
     dispatch({
       type: "GET_PROJECT_DETAIL",
@@ -19,9 +20,9 @@ export default function IndexCyberBugs(props) {
 
   return (
     <div className="ml-4">
-      <HeaderMain />
-      <InfoMain />
-      <ContentMain />
+      <HeaderMain projectDetail={projectDetail}/>
+      <InfoMain projectDetail={projectDetail}/>
+      <ContentMain projectDetail={projectDetail}/>
     </div>
   );
 }

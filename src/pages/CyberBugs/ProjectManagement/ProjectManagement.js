@@ -10,7 +10,7 @@ import {
   Popover,
   AutoComplete,
 } from "antd";
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
 import { DeleteOutlined, FormOutlined, UserOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import FormEditProject from "../../../components/Forms/FormEditProject/FormEditProject";
@@ -282,6 +282,7 @@ export default function ProjectManagement() {
             onClick={() => {
               const action = {
                 type: "OPEN_FORM_EDIT_PROJECT",
+                title: "Edit Project",
                 Component: <FormEditProject />,
               };
 
