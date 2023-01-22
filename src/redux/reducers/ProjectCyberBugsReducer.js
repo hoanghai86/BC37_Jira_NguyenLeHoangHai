@@ -1,3 +1,5 @@
+import { GET_ALL_PROJECT } from "../constants/Cyberbugs/ProjectCyberBugsConstants";
+
 const stateDefault = {
   projectList: [
     {
@@ -37,6 +39,7 @@ const stateDefault = {
       deleted: false,
     },
   ],
+  arrProject:[], //Get All Project cho dropdown
 };
 
 export const ProjectCyberBugsReducer = (state = stateDefault, action) => {
@@ -45,6 +48,11 @@ export const ProjectCyberBugsReducer = (state = stateDefault, action) => {
       state.projectList = action.projectList;
       // console.log(action.projectList)
       return { ...state };
+    }
+
+    case GET_ALL_PROJECT: {
+      // state.arrProject = action.arrProject;
+      return { ...state, arrProject: action.arrProject };
     }
 
     default:

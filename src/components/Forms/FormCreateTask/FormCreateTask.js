@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Editor } from "@tinymce/tinymce-react";
 import { Radio, Select, Space, Slider } from "antd";
-import { useState } from "react";
+import { GET_ALL_PROJECT_SAGA } from "../../../redux/constants/Cyberbugs/ProjectCyberBugsConstants";
+import { GET_ALL_TASK_TYPE_SAGA } from "../../../redux/constants/Cyberbugs/TaskTypeConstants";
+import { GET_ALL_PRIORITY_SAGA } from "../../../redux/constants/Cyberbugs/PriorityConstants";
 
 const { Option } = Select;
 
@@ -11,12 +14,36 @@ for (let i = 10; i < 36; i++) {
 }
 
 export default function FormCreateTask(props) {
+  //lấy dữ liệu từ Redux
+  const { arrProject } = useSelector((state) => state.ProjectCyberBugsReducer);
+  const { arrTaskType } = useSelector((state) => state.TaskTypeReducer);
+  const { arrPriority } = useSelector((state) => state.PriorityReducer);
+  const { userSearch } = useSelector(
+    (state) => state.UserLoginCyberBugsReducer
+  );
+
+  console.log(userSearch);
+  //Hàm biến đổi option cho thẻ select
+  const userOptions = userSearch.map((item, index) => {
+    return { value: item.userId, label: item.name };
+  });
+
+  const dispatch = useDispatch();
+
   const [size, setSize] = useState("default");
 
   const [timeTracking, setTimetracking] = useState({
     timeTrackingSpent: 0,
     timeTrackingRemaining: 10,
   });
+
+  //hook
+  useEffect(() => {
+    dispatch({ type: GET_ALL_PROJECT_SAGA });
+    dispatch({ type: GET_ALL_TASK_TYPE_SAGA });
+    dispatch({ type: GET_ALL_PRIORITY_SAGA });
+    dispatch({ type: "GET_USER_API", keyWord: "" });
+  }, []);
 
   const {
     values,
@@ -41,9 +68,21 @@ export default function FormCreateTask(props) {
       <div className="form-group">
         <p>Project</p>
         <select name="projectId" className="form-control">
-          <option value="54">Project A</option>
-          <option value="55">Project B</option>
+          {/* <option value="54">Project A</option>
+          <option value="55">Project B</option> */}
+          {arrProject?.map((project, index) => {
+            return (
+              <option key={index} value={project.id}>
+                {project.projectName}
+              </option>
+            );
+          })}
         </select>
+      </div>
+
+      <div className="form-group">
+        <p>Task name</p>
+        <input type="text" className="form-control" name="taskName"/>
       </div>
 
       <div className="form-group">
@@ -51,15 +90,29 @@ export default function FormCreateTask(props) {
           <div className="col-6">
             <p>Priority</p>
             <select name="priorityId" className="form-control">
-              <option>High</option>
-              <option>Low</option>
+              {/* <option>High</option>
+              <option>Low</option> */}
+              {arrPriority?.map((priority, index) => {
+                return (
+                  <option key={index} value={priority.priorityId}>
+                    {priority.priority}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="col-6">
             <p>Task type</p>
             <select className="form-control" name="typeId">
-              <option>New task</option>
-              <option>Bugs</option>
+              {/* <option>New task</option>
+              <option>Bugs</option> */}
+              {arrTaskType?.map((taskType, index) => {
+                return (
+                  <option key={index} value={taskType.id}>
+                    {taskType.taskType}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
@@ -72,14 +125,14 @@ export default function FormCreateTask(props) {
             <Select
               mode="multiple"
               size={size}
-              options={[
-                { value: "a12", label: "b12" },
-                { value: "a12", label: "b12" },
-                { value: "a12", label: "b12" },
-              ]}
+              options={userOptions}
               placeholder="Please select"
-              defaultValue={["a10", "c12"]}
+              optionFilterProp="label"
               onChange={handleChange}
+              onSelect={(value) => {
+                console.log("value", value);
+
+              }}
               style={{
                 width: "100%",
               }}
@@ -102,8 +155,12 @@ export default function FormCreateTask(props) {
               // }}
             />
             <div className="row">
-              <div className="col text-left font-semibold">{timeTracking.timeTrackingSpent}h logged</div>
-              <div className="col text-right font-semibold">{timeTracking.timeTrackingRemaining}h remaining</div>
+              <div className="col text-left font-semibold">
+                {timeTracking.timeTrackingSpent}h logged
+              </div>
+              <div className="col text-right font-semibold">
+                {timeTracking.timeTrackingRemaining}h remaining
+              </div>
             </div>
           </div>
         </div>
