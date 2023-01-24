@@ -7,6 +7,8 @@ import { GET_ALL_TASK_TYPE_SAGA } from "../../../redux/constants/Cyberbugs/TaskT
 import { GET_ALL_PRIORITY_SAGA } from "../../../redux/constants/Cyberbugs/PriorityConstants";
 import { withFormik } from "formik";
 import * as Yup from "yup";
+import { GET_ALL_STATUS_SAGA } from "../../../redux/constants/Cyberbugs/StatusConstant";
+import { GET_USER_BY_PROJECT_ID_SAGA } from "../../../redux/constants/Cyberbugs/UserConstants";
 
 const { Option } = Select;
 
@@ -20,12 +22,12 @@ function FormCreateTask(props) {
   const { arrProject } = useSelector((state) => state.ProjectCyberBugsReducer);
   const { arrTaskType } = useSelector((state) => state.TaskTypeReducer);
   const { arrPriority } = useSelector((state) => state.PriorityReducer);
-  const { userSearch } = useSelector(
-    (state) => state.UserLoginCyberBugsReducer
-  );
+  const { arrUser } = useSelector((state) => state.UserLoginCyberBugsReducer);
+  const { arrStatus } = useSelector((state) => state.StatusReducer);
+  console.log(arrStatus);
 
   //Hàm biến đổi option cho thẻ select
-  const userOptions = userSearch.map((item, index) => {
+  const userOptions = arrUser.map((item, index) => {
     return { value: item.userId, label: item.name };
   });
 
@@ -39,6 +41,11 @@ function FormCreateTask(props) {
     dispatch({ type: GET_ALL_PROJECT_SAGA });
     dispatch({ type: GET_ALL_TASK_TYPE_SAGA });
     dispatch({ type: GET_ALL_PRIORITY_SAGA });
+    dispatch({ type: GET_ALL_STATUS_SAGA });
+
+    //đưa hàm handle submit lên drawer reducer để cập nhật lại sự kiện cho nút submit
+    dispatch({type: "SET_SUBMIT_CREATE_TASK", submitFunction: handleSubmit});
+
     dispatch({ type: "GET_USER_API", keyWord: "" });
   }, []);
 
@@ -68,7 +75,16 @@ function FormCreateTask(props) {
         <select
           name="projectId"
           className="form-control"
-          onChange={handleChange}
+          onChange={(e) => {
+            //dispatch giá trị làm thay đổi arrUser
+            let { value } = e.target;
+            dispatch({
+              type: GET_USER_BY_PROJECT_ID_SAGA,
+              idProject: value,
+            });
+            //Cập nhật giá trị cho project id
+            setFieldValue("projectId", e.target.value);
+          }}
         >
           {/* <option value="54">Project A</option>
           <option value="55">Project B</option> */}
@@ -90,6 +106,24 @@ function FormCreateTask(props) {
           name="taskName"
           onChange={handleChange}
         />
+      </div>
+
+      <div className="form-group">
+        <p>Status</p>
+        <select
+          type="text"
+          className="form-control"
+          name="statusId"
+          onChange={handleChange}
+        >
+          {arrStatus?.map((statusItem, index) => {
+            return (
+              <option key={index} value={statusItem.statusId}>
+                {statusItem.statusName}
+              </option>
+            );
+          })}
+        </select>
       </div>
 
       <div className="form-group">
@@ -144,6 +178,7 @@ function FormCreateTask(props) {
               placeholder="Please select"
               optionFilterProp="label"
               onChange={(values) => {
+                //set lại giá trị cho lstUserAssign
                 setFieldValue("listUserAsign", values);
               }}
               onSelect={(value) => {
@@ -262,24 +297,26 @@ function FormCreateTask(props) {
           />
         </>
       </div>
-      <button type="submit">Submit</button>
+      {/* <button type="submit">Submit</button> */}
     </form>
   );
 }
 
 const frmCreateTask = withFormik({
-  // enableReinitialize: true,
+  enableReinitialize: true,
   mapPropsToValues: (props) => {
+    const { arrProject, arrTaskType, arrPriority, arrStatus } = props;
+
     return {
       taskName: "",
       description: "",
-      statusId: 1,
+      statusId: arrStatus[0]?.statusId,
       originalEstimate: 0,
       timeTrackingSpent: 0,
       timeTrackingRemaining: 0,
-      projectId: 0,
-      typeId: 0,
-      priorityId: 0,
+      projectId: arrProject[0]?.id,
+      typeId: arrTaskType[0]?.id,
+      priorityId: arrPriority[0]?.priorityId,
       listUserAsign: [],
     };
   },
@@ -288,10 +325,18 @@ const frmCreateTask = withFormik({
 
   handleSubmit: (values, { props, setSubmitting }) => {
     props.dispatch({ type: "CREATE_TASK_SAGA", taskObject: values });
-    
   },
 
   displayName: "createTaskForm",
 })(FormCreateTask);
 
-export default connect()(frmCreateTask);
+const mapStateToProps = (state) => {
+  return {
+    arrProject: state.ProjectCyberBugsReducer.arrProject,
+    arrTaskType: state.TaskTypeReducer.arrTaskType,
+    arrPriority: state.PriorityReducer.arrPriority,
+    arrStatus: state.StatusReducer.arrStatus,
+  };
+};
+
+export default connect(mapStateToProps)(frmCreateTask);
