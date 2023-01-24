@@ -18,10 +18,10 @@ function* createTaskSaga(action) {
     if (status === STATUS_CODE.SUCCESS) {
       console.log(data);
     }
+    notifiFunction("success", "Create task successfully !");
     yield put({
       type: "CLOSE_DRAWER",
     });
-    notifiFunction("success", "Create task successfully !");
   } catch (error) {
     console.log(error.response.data);
   }
