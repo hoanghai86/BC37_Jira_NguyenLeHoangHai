@@ -356,7 +356,8 @@
   
   /* Modal Info */
   .modal-info {
-    max-width: 1000px !important;
+    /* max-width: 1000px !important; */
+    max-width: 100% !important;
   }
   
   .modal-info .modal-content {
@@ -427,7 +428,8 @@
     background: #e9eaf0;
     padding: 5px;
     border-radius: 5px;
-    flex-basis: 50%;
+    /* flex-basis: 50%; */
+    flex-basis: content;
   }
   
   .item .avatar img {
