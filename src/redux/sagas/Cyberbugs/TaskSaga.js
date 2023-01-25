@@ -3,7 +3,11 @@ import { taskService } from "../../../services/TaskService";
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../constants/LoadingConst";
 import { STATUS_CODE } from "../../../util/constants/settingSystem";
 import { notifiFunction } from "../../../util/Notification/notificationCyberbugs";
-import { GET_TASK_DETAIL, GET_TASK_DETAIL_SAGA } from "../../constants/Cyberbugs/TaskConstants";
+import {
+  GET_TASK_DETAIL,
+  GET_TASK_DETAIL_SAGA,
+  UPDATE_STATUS_TASK_SAGA,
+} from "../../constants/Cyberbugs/TaskConstants";
 
 function* createTaskSaga(action) {
   //hiển thị loading
@@ -35,7 +39,6 @@ export function* theoDoiCreateTaskSaga() {
   yield takeLatest("CREATE_TASK_SAGA", createTaskSaga);
 }
 
-
 /* -------------------------------------------------- */
 
 function* getTaskDetailSaga(action) {
@@ -48,7 +51,7 @@ function* getTaskDetailSaga(action) {
     yield put({
       type: GET_TASK_DETAIL,
       taskDetailModal: data.content,
-    })
+    });
   } catch (error) {
     console.log(error);
   }
@@ -56,4 +59,34 @@ function* getTaskDetailSaga(action) {
 
 export function* theoDoiGetTaskDetailSaga() {
   yield takeLatest(GET_TASK_DETAIL_SAGA, getTaskDetailSaga);
+}
+
+/* update task-------------------------------------------------- */
+function* updateTaskStatusSaga(action) {
+  const { taskUpdateStatus } = action;
+  try {
+    //cập nhật lại api status cho task hiện tại (task đang mở modal)
+    const { data, status } = yield call(() =>
+      taskService.updateStatusTask(taskUpdateStatus)
+    );
+
+    //Sau khi thành công thì gọi lại get project detail saga để sắp xếp lại thông tin các task
+    if (status === STATUS_CODE.SUCCESS) {
+      yield put({
+        type: "GET_PROJECT_DETAIL",
+        projectId: taskUpdateStatus.projectId,
+      });
+
+      yield put({
+        type: GET_TASK_DETAIL_SAGA,
+        taskId: taskUpdateStatus.taskId,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* theoDoiUpdateTaskStatusSaga(){
+  yield takeLatest (UPDATE_STATUS_TASK_SAGA, updateTaskStatusSaga)
 }

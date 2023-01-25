@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { GET_ALL_PRIORITY_SAGA } from "../../../redux/constants/Cyberbugs/PriorityConstants";
 import { GET_ALL_STATUS_SAGA } from "../../../redux/constants/Cyberbugs/StatusConstant";
+import { UPDATE_STATUS_TASK_SAGA } from "../../../redux/constants/Cyberbugs/TaskConstants";
 
 // import { Button, Modal } from 'antd';
 
@@ -246,7 +247,25 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                           <select
                             className="custom-select"
                             value={taskDetailModal?.statusId}
-                            onChange={(e) => {}}
+                            onChange={(e) => {
+                              const action = {
+                                type: UPDATE_STATUS_TASK_SAGA,
+                                taskUpdateStatus: {
+                                  taskId: taskDetailModal.taskId,
+                                  statusId: e.target.value,
+                                  projectId: taskDetailModal.projectId,
+                                },
+                              };
+                              // console.log("action",action);
+                              // console.log("taskUpdateStatus", {
+                              //   taskId: taskDetailModal.taskId,
+                              //   statusId: e.target.value,
+                              // });
+
+                              dispatch(action);
+
+
+                            }}
                           >
                             {arrStatus?.map((status, index) => {
                               return (
