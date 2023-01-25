@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { GET_TASK_DETAIL_SAGA } from "../../../redux/constants/Cyberbugs/TaskConstants";
 import ModalCyberBugs from "../ModalCyberBugs/ModalCyberBugs";
 
 export default function ContentMain(props) {
   const { projectDetail } = props;
+  const dispatch = useDispatch();
 
   const renderCardTaskList = () => {
     return projectDetail.lstTask?.map((taskListDetail, index) => {
@@ -23,7 +25,10 @@ export default function ContentMain(props) {
                       data-toggle="modal"
                       data-target="#infoModal"
                       style={{ cursor: "pointer" }}
-                      onClick={handleShow}
+                      onClick={()=>{
+                        dispatch({type: GET_TASK_DETAIL_SAGA, taskId: task.taskId});
+                        handleShow();
+                      }}
                     >
                       <p className="font-light">
                         {task.taskName}

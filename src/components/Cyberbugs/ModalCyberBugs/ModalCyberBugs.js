@@ -325,7 +325,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                             onChange={(e) => {}}
                           >
                             {arrPriority?.map((item, index) => {
-                              console.log("itemmm", item);
+                              // console.log("item", item);
                               return (
                                 <option key={index} value={item.priorityId}>
                                   {item.priority}
