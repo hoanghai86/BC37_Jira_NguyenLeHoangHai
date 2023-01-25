@@ -1,4 +1,7 @@
-import { GET_TASK_DETAIL } from "../constants/Cyberbugs/TaskConstants";
+import {
+  CHANGE_TASK_MODAL,
+  GET_TASK_DETAIL,
+} from "../constants/Cyberbugs/TaskConstants";
 
 const initialState = {
   taskDetailModal: {
@@ -36,10 +39,22 @@ const initialState = {
 export const TaskReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_TASK_DETAIL: {
+      console.log(action.taskDetailModal);
       return { ...state, taskDetailModal: action.taskDetailModal };
     }
 
+    case CHANGE_TASK_MODAL: {
+      const { name, value } = action;
+      console.log(state.taskDetailModal); //state trước khi thay đổi
+      return {
+        ...state,
+        taskDetailModal: { ...state.taskDetailModal, [name]: value }, //state mới sau khi thay đổi
+      };
+    }
+
+    
     default:
       return state;
-  }
-};
+    }
+  };
+  
