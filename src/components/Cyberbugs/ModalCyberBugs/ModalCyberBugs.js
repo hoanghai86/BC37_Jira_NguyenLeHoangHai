@@ -79,7 +79,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                 <div className="modal-header">
                   <div className="task-title">
                     <i className="fa fa-bookmark" />
-                    <span className="text-2xl">
+                    <span className="text-2xl font-semibold">
                       {taskDetailModal?.taskName}
                     </span>
                   </div>
