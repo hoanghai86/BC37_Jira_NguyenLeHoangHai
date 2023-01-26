@@ -203,7 +203,7 @@ export default function ContentMain(props) {
         </div> */}
       </div>
 
-      <ModalCyberBugs show={show} handleClose={handleClose} />
+      <ModalCyberBugs show={show} handleClose={handleClose}/>
     </>
   );
 }

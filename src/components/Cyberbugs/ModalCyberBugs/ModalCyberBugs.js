@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { GET_ALL_PRIORITY_SAGA } from "../../../redux/constants/Cyberbugs/PriorityConstants";
 import { GET_ALL_STATUS_SAGA } from "../../../redux/constants/Cyberbugs/StatusConstant";
-import { CHANGE_TASK_MODAL, UPDATE_STATUS_TASK_SAGA } from "../../../redux/constants/Cyberbugs/TaskConstants";
+import {
+  CHANGE_TASK_MODAL,
+  UPDATE_STATUS_TASK_SAGA,
+} from "../../../redux/constants/Cyberbugs/TaskConstants";
 import { GET_ALL_TASK_TYPE_SAGA } from "../../../redux/constants/Cyberbugs/TaskTypeConstants";
+import { Editor } from "@tinymce/tinymce-react";
 
 // import { Button, Modal } from 'antd';
 
@@ -13,6 +17,11 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
   const { arrStatus } = useSelector((state) => state.StatusReducer);
   const { arrPriority } = useSelector((state) => state.PriorityReducer);
   const { arrTaskType } = useSelector((state) => state.TaskTypeReducer);
+  const [visibleEditor, setVisibleEditor] = useState(false);
+  const [historyContent, setHistoryContent] = useState(
+    taskDetailModal.description
+  );
+  const [content, setContent] = useState(taskDetailModal.description);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,9 +35,83 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
 
   const parse = require("html-react-parser");
 
+  const {
+    values,
+    touched,
+    errors,
+    // handleChange,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+  } = props;
+
   const renderDescription = () => {
     const jsxDescription = parse(`<p>${taskDetailModal.description}</p>`);
-    return jsxDescription;
+
+    return (
+      <div>
+        {visibleEditor ? (
+          <div>
+            <Editor
+              name="description"
+              initialValue={taskDetailModal.description}
+              init={{
+                selector: "textarea#myTextArea",
+                height: 300,
+                menubar: false,
+                plugins: [
+                  "advlist autolink lists link image charmap print preview anchor",
+                  "searchreplace visualblocks code fullscreen",
+                  "insertdatetime media table paste code help wordcount",
+                ],
+                toolbar:
+                  "undo redo | formatselect | " +
+                  "bold italic backcolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | help",
+              }}
+              onEditorChange={(content, editor) => {
+                setContent(content);
+              }}
+            />
+            <div className="text-right mt-2">
+              <button
+                className="btn btn-primary btn-sm mr-2 w-20"
+                onClick={() => {
+                  dispatch({
+                    type: CHANGE_TASK_MODAL,
+                    name: 'description',
+                    value: content,
+                  })
+                  setVisibleEditor(false);
+                }}>Save</button>
+              <button
+                className="btn btn-secondary btn-sm w-20"
+                onClick={() => {
+                  dispatch({
+                    type: CHANGE_TASK_MODAL,
+                    name: "description",
+                    value: historyContent,
+                  })
+                  setVisibleEditor(false);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div
+            onClick={() => {
+              setHistoryContent(taskDetailModal.description);
+              setVisibleEditor(!visibleEditor);
+            }}
+          >
+            {jsxDescription}
+          </div>
+        )}
+      </div>
+    );
   };
 
   const handleChange = (e) => {
@@ -114,9 +197,17 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                 <div className="modal-header">
                   <div className="task-title">
                     <i className="fa fa-bookmark" />
-                    <select name="typeId" value={taskDetailModal.typeId} onChange={handleChange}>
-                      {arrTaskType?.map((tp,index)=>{
-                        return <option key={index} value={tp.id}>{tp.taskType}</option>
+                    <select
+                      name="typeId"
+                      value={taskDetailModal.typeId}
+                      onChange={handleChange}
+                    >
+                      {arrTaskType?.map((tp, index) => {
+                        return (
+                          <option key={index} value={tp.id}>
+                            {tp.taskType}
+                          </option>
+                        );
                       })}
                     </select>
                     <span className="text-2xl font-semibold">
@@ -305,9 +396,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
 
                               // dispatch(action);
 
-                              handleChange(e)
-
-
+                              handleChange(e);
                             }}
                           >
                             {arrStatus?.map((status, index) => {
