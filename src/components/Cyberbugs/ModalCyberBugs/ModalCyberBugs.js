@@ -4,11 +4,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { GET_ALL_PRIORITY_SAGA } from "../../../redux/constants/Cyberbugs/PriorityConstants";
 import { GET_ALL_STATUS_SAGA } from "../../../redux/constants/Cyberbugs/StatusConstant";
 import {
+  CHANGE_ASSIGNESS,
   CHANGE_TASK_MODAL,
+  REMOVE_USER_ASSIGN,
   UPDATE_STATUS_TASK_SAGA,
 } from "../../../redux/constants/Cyberbugs/TaskConstants";
 import { GET_ALL_TASK_TYPE_SAGA } from "../../../redux/constants/Cyberbugs/TaskTypeConstants";
 import { Editor } from "@tinymce/tinymce-react";
+import { Select } from 'antd';
+
+const { Option } = Select;
+
 
 // import { Button, Modal } from 'antd';
 
@@ -17,6 +23,8 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
   const { arrStatus } = useSelector((state) => state.StatusReducer);
   const { arrPriority } = useSelector((state) => state.PriorityReducer);
   const { arrTaskType } = useSelector((state) => state.TaskTypeReducer);
+
+  const { projectDetail } = useSelector((state) => state.ProjectReducer);
   const [visibleEditor, setVisibleEditor] = useState(false);
   const [historyContent, setHistoryContent] = useState(
     taskDetailModal.description
@@ -414,37 +422,104 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                         </div>
                         <div className="assignees">
                           <h6>ASSIGNEES</h6>
-                          <div
-                            style={{ display: "flex", marginBottom: "20px" }}
-                          >
+                          <div className="row">
                             {taskDetailModal.assigness?.map((user, index) => {
                               return (
-                                <div
-                                  key={index}
-                                  style={{ display: "flex" }}
-                                  className="item"
-                                >
-                                  <div className="avatar">
-                                    <img src={user.avatar} alt={user.avatar} />
+                                <div key={index} className="col-md-auto mb-2  cursor-pointer" onClick={() => {
+                                  dispatch({
+                                    type: REMOVE_USER_ASSIGN,
+                                    userId: user.id,
+                                  });
+                                }}>
+                                  <div
+                                    style={{ display: "flex" }}
+                                    className="item"
+                                  >
+                                    <div className="avatar">
+                                      <img
+                                        src={user.avatar}
+                                        alt={user.avatar}
+                                      />
+                                    </div>
+                                    <p className="name mt-1 ml-1">
+                                      {user.name}
+                                      <i
+                                        className="fa fa-times"
+                                        style={{ marginLeft: 5 }}
+                                      />
+                                    </p>
                                   </div>
-                                  <p className="name mt-1 ml-1">
-                                    {user.name}
-                                    <i
-                                      className="fa fa-times"
-                                      style={{ marginLeft: 5 }}
-                                    />
-                                  </p>
                                 </div>
                               );
                             })}
-                            <div
-                              style={{ display: "flex", alignItems: "center" }}
-                            >
+                            <div className="col-md-auto mb-3">
                               <i
                                 className="fa fa-plus"
                                 style={{ marginRight: 5 }}
                               />
                               <span>Add more</span>
+                              <Select
+                                options={projectDetail.members
+                                  ?.filter((mem) => {
+                                    let index =
+                                      taskDetailModal.assigness?.findIndex(
+                                        (us) => us.id === mem.userId
+                                      );
+                                    if (index !== -1) {
+                                      return false;
+                                    }
+                                    return true;
+                                  })
+                                  .map((mem, index) => {
+                                    return {
+                                      value: mem.userId,
+                                      label: mem.name,
+                                    };
+                                  })}
+                                optionFilterProp="label"
+                                name="lstUser"
+                                value="Select User Assign"
+                                className="w-full"
+                                onSelect={(value) => {
+                                  if (value == "0") {
+                                    return;
+                                  }
+
+                                  let userSelected = projectDetail.members.find(
+                                    (mem) => mem.userId == value
+                                  );
+                                  userSelected = {
+                                    ...userSelected,
+                                    id: userSelected.userId,
+                                  };
+
+                                  //dispatch reducer
+                                  dispatch({
+                                    type: CHANGE_ASSIGNESS,
+                                    userSelected,
+                                  });
+
+                                  /*
+                                {
+                                  id: 3887,
+                                  avatar: "https://ui-avatars.com/api/?name=Hải",
+                                  name: "Hải",
+                                  alias: "hai",
+                                } 
+                                 */
+
+                                  /*
+                                {
+                                  id: 3887,
+                                  avatar: "https://ui-avatars.com/api/?name=Hải",
+                                  name: "Hải",
+                                  alias: "hai",
+                                  id: 3887,
+                                } 
+                                 */
+                                }}
+                              >
+                              </Select>
                             </div>
                           </div>
                         </div>

@@ -424,7 +424,7 @@
   }
   
   .item {
-    margin-right: 20px;
+    /* margin-right: 20px; */
     background: #e9eaf0;
     padding: 5px;
     border-radius: 5px;
