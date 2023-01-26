@@ -6,6 +6,7 @@ import { GET_ALL_STATUS_SAGA } from "../../../redux/constants/Cyberbugs/StatusCo
 import {
   CHANGE_ASSIGNESS,
   CHANGE_TASK_MODAL,
+  HANDLE_CHANGE_POST_API_SAGA,
   REMOVE_USER_ASSIGN,
   UPDATE_STATUS_TASK_SAGA,
 } from "../../../redux/constants/Cyberbugs/TaskConstants";
@@ -87,20 +88,34 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                 className="btn btn-primary btn-sm mr-2 w-20"
                 onClick={() => {
                   dispatch({
-                    type: CHANGE_TASK_MODAL,
-                    name: 'description',
+                    type: HANDLE_CHANGE_POST_API_SAGA,
+                    actionType: CHANGE_TASK_MODAL,
+                    name: "description",
                     value: content,
-                  })
+                  });
+
+                  // dispatch({
+                  //   type: CHANGE_TASK_MODAL,
+                  //   name: 'description',
+                  //   value: content,
+                  // })
                   setVisibleEditor(false);
                 }}>Save</button>
               <button
                 className="btn btn-secondary btn-sm w-20"
                 onClick={() => {
                   dispatch({
-                    type: CHANGE_TASK_MODAL,
+                    type: HANDLE_CHANGE_POST_API_SAGA,
+                    actionType: CHANGE_TASK_MODAL,
                     name: "description",
                     value: historyContent,
-                  })
+                  });
+
+                  // dispatch({
+                  //   type: CHANGE_TASK_MODAL,
+                  //   name: "description",
+                  //   value: historyContent,
+                  // })
                   setVisibleEditor(false);
                 }}
               >
@@ -124,11 +139,20 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     dispatch({
-      type: CHANGE_TASK_MODAL,
+      type: HANDLE_CHANGE_POST_API_SAGA,
+      actionType: CHANGE_TASK_MODAL,
       name,
       value,
-    });
+    })
+
+
+    // dispatch({
+    //   type: CHANGE_TASK_MODAL,
+    //   name,
+    //   value,
+    // });
   };
 
   const renderTimeTracking = () => {
@@ -427,9 +451,16 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                               return (
                                 <div key={index} className="col-md-auto mb-2  cursor-pointer" onClick={() => {
                                   dispatch({
-                                    type: REMOVE_USER_ASSIGN,
+                                    type: HANDLE_CHANGE_POST_API_SAGA,
+                                    actionType: REMOVE_USER_ASSIGN,
                                     userId: user.id,
                                   });
+                                  
+                                  
+                                  // dispatch({
+                                  //   type: REMOVE_USER_ASSIGN,
+                                  //   userId: user.id,
+                                  // });
                                 }}>
                                   <div
                                     style={{ display: "flex" }}
@@ -493,11 +524,17 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                                     id: userSelected.userId,
                                   };
 
-                                  //dispatch reducer
                                   dispatch({
-                                    type: CHANGE_ASSIGNESS,
+                                    type: HANDLE_CHANGE_POST_API_SAGA,
+                                    actionType: CHANGE_ASSIGNESS,
                                     userSelected,
                                   });
+
+                                  //dispatch reducer
+                                  // dispatch({
+                                  //   type: CHANGE_ASSIGNESS,
+                                  //   userSelected,
+                                  // });
 
                                   /*
                                 {
