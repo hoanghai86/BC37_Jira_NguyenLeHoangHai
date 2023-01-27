@@ -5,6 +5,7 @@ import {
   LockOutlined,
   FacebookOutlined,
   TwitterOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
 import { withFormik } from "formik";
 import * as Yup from "yup";
@@ -38,7 +39,7 @@ function LoginCyberBugs(props) {
             name="email"
             size="large"
             placeholder="email"
-            prefix={<UserOutlined />}
+            prefix={<MailOutlined />}
             className="w-72"
           />
         </div>

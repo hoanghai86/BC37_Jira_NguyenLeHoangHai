@@ -5,6 +5,8 @@ import {
   LockOutlined,
   FacebookOutlined,
   TwitterOutlined,
+  MailOutlined,
+  PhoneOutlined,
 } from "@ant-design/icons";
 
 export default function SignUpCyberBugs() {
@@ -26,7 +28,7 @@ export default function SignUpCyberBugs() {
             name="email"
             size="large"
             placeholder="email"
-            prefix={<UserOutlined />}
+            prefix={<MailOutlined />}
             className="w-72"
           />
         </div>
@@ -48,7 +50,7 @@ export default function SignUpCyberBugs() {
             name="name"
             size="large"
             placeholder="name"
-            prefix={<LockOutlined />}
+            prefix={<UserOutlined />}
             className="w-72"
           />
         </div>
@@ -59,7 +61,7 @@ export default function SignUpCyberBugs() {
             name="phoneNumber"
             size="large"
             placeholder="phoneNumber"
-            prefix={<LockOutlined />}
+            prefix={<PhoneOutlined />}
             className="w-72"
           />
         </div>
