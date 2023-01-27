@@ -1,80 +1,151 @@
 import React, { useState } from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import { GET_TASK_DETAIL_SAGA } from "../../../redux/constants/Cyberbugs/TaskConstants";
+import { GET_TASK_DETAIL_SAGA, UPDATE_STATUS_TASK_SAGA } from "../../../redux/constants/Cyberbugs/TaskConstants";
 import ModalCyberBugs from "../ModalCyberBugs/ModalCyberBugs";
 
 export default function ContentMain(props) {
   const { projectDetail } = props;
   const dispatch = useDispatch();
 
-  const renderCardTaskList = () => {
-    return projectDetail.lstTask?.map((taskListDetail, index) => {
-      return (
-          <div className="pr-2" key={index}>
-            <div
-              className="card px-2 py-2"
-              style={{ width: "17rem", height: "auto" }}
-            >
-              <div className="card-header">{taskListDetail.statusName}</div>
-              <ul className="list-group list-group-flush">
-                {taskListDetail.lstTaskDeTail?.map((task,index)=>{
-                  return (
-                    <li
-                      key={index}
-                      className="list-group-item mb-2"
-                      data-toggle="modal"
-                      data-target="#infoModal"
-                      style={{ cursor: "pointer" }}
-                      onClick={()=>{
-                        dispatch({type: GET_TASK_DETAIL_SAGA, taskId: task.taskId});
-                        handleShow();
-                      }}
-                    >
-                      <p className="font-light">
-                        {task.taskName}
-                      </p>
-                      <div className="block" style={{ display: "flex" }}>
-                        <div className="block-left">
-                          <i className="fa fa-bookmark mr-2" />
-                          <i className="fa fa-arrow-up mr-2" />
-                          <p className="font-light inline text-blue-400">{task.priorityTask.priority}</p>
-                        </div>
-                        <div className="block-right">
-                          <div
-                            className="avatar-group"
-                            style={{ display: "flex" }}
-                          >
-                            {task.assigness?.map((mem,index)=>{
-                              return (
-                                <div key={index} className="avatar">
-                                  <img src={mem.avatar} alt={mem.avatar} />
-                                </div>
-                              );
-                            })}
-                            {/* <div className="avatar">
-                              <img
-                                src={require("../../../assets/img/download (1).jfif")}
-                                alt=""
-                              />
-                            </div>
-                            <div className="avatar">
-                              <img
-                                src={require("../../../assets/img/download (2).jfif")}
-                                alt=""
-                              />
-                            </div> */}
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
+  const handleDragEnd = (result) => {
+    let { projectId, taskId } = JSON.parse(result.draggableId); //Lấy ra chuỗi sau mỗi lần draggable
+    let { source, destination } = result;
+    // console.log(result);
 
-              </ul>
-            </div>
-          </div>
-      );
+    if (!result.destination) {
+      return;
+    }
+    if (
+      source.index === destination.index &&
+      source.droppableId === destination.droppableId
+    ) {
+      return;
+    }
+
+    //Gọi api cập nhật lại status
+    dispatch({
+      type: UPDATE_STATUS_TASK_SAGA,
+      taskUpdateStatus: {
+        taskId: taskId,
+        statusId: destination.droppableId,
+        projectId: projectId,
+      },
     });
+  };
+
+  const renderCardTaskList = () => {
+    return (
+      <DragDropContext onDragEnd={handleDragEnd}>
+        {projectDetail.lstTask?.map((taskListDetail, index) => {
+          return (
+            <Droppable key={index} droppableId={taskListDetail.statusId}>
+              {(provided) => {
+                return (
+                  <div className="pr-2">
+                    <div
+                      className="card px-2 py-2"
+                      style={{ width: "17rem", height: "auto" }}
+                    >
+                      <div className="card-header">
+                        {taskListDetail.statusName}
+                      </div>
+                      <ul
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        key={index}
+                        className="list-group list-group-flush"
+                      >
+                        {taskListDetail.lstTaskDeTail?.map((task, index) => {
+                          return (
+                            <Draggable
+                              key={task.taskId.toString()}
+                              index={index}
+                              draggableId={JSON.stringify({projectId:task.projectId, taskId:task.taskId})}
+                            >
+                              {(provided) => {
+                                return (
+                                  <li
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    key={index}
+                                    className="list-group-item mb-2"
+                                    data-toggle="modal"
+                                    data-target="#infoModal"
+                                    // style={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                      dispatch({
+                                        type: GET_TASK_DETAIL_SAGA,
+                                        taskId: task.taskId,
+                                      });
+                                      handleShow();
+                                    }}
+                                  >
+                                    <p className="font-light">
+                                      {task.taskName}
+                                    </p>
+                                    <div
+                                      className="block"
+                                      style={{ display: "flex" }}
+                                    >
+                                      <div className="block-left">
+                                        <i className="fa fa-bookmark mr-2" />
+                                        <i className="fa fa-arrow-up mr-2" />
+                                        <p className="font-light inline text-blue-400">
+                                          {task.priorityTask.priority}
+                                        </p>
+                                      </div>
+                                      <div className="block-right">
+                                        <div
+                                          className="avatar-group"
+                                          style={{ display: "flex" }}
+                                        >
+                                          {task.assigness?.map((mem, index) => {
+                                            return (
+                                              <div
+                                                key={index}
+                                                className="avatar"
+                                              >
+                                                <img
+                                                  src={mem.avatar}
+                                                  alt={mem.avatar}
+                                                />
+                                              </div>
+                                            );
+                                          })}
+                                          {/* <div className="avatar">
+                            <img
+                              src={require("../../../assets/img/download (1).jfif")}
+                              alt=""
+                            />
+                          </div>
+                          <div className="avatar">
+                            <img
+                              src={require("../../../assets/img/download (2).jfif")}
+                              alt=""
+                            />
+                          </div> */}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                );
+                              }}
+                            </Draggable>
+                          );
+                        })}
+                        {provided.placeholder}
+                      </ul>
+                    </div>
+                  </div>
+                );
+              }}
+            </Droppable>
+          );
+        })}
+      </DragDropContext>
+    );
   };
 
   const [show, setShow] = useState(false);
