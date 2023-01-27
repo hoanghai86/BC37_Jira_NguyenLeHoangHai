@@ -27,6 +27,7 @@ import CreateProject from "./pages/CyberBugs/CreateProject/CreateProject";
 import ProjectManagement from "./pages/CyberBugs/ProjectManagement/ProjectManagement";
 import DrawerCyberBugs from "./HOC/CyberbugsHOC/DrawerCyberBugs";
 import NotificationComponent from "./components/Notification/NotificationComponent";
+import SignUpCyberBugs from "./pages/CyberBugs/LoginCyberBugs/SignUpCyberBugs";
 
 function App() {
 
@@ -73,9 +74,10 @@ function App() {
         <CyberbugsTemplate exact path="/createProject" Component={CreateProject} />
         <CyberbugsTemplate exact path="/projectmanagement" Component={ProjectManagement} />
         <CyberbugsTemplate exact path="/projectdetail/:projectId" Component={indexCyberBugs} />
-
+        
         {/* <CyberbugsTemplate exact path="/" Component={ProjectManagement} /> */}
         <UserLoginTemplate exact path="/" Component={LoginCyberBugs} />
+        <UserLoginTemplate exact path="/signup" Component={SignUpCyberBugs} />
         <HomeTemplate path="*" Component={PageNotFound} />{" "}
         {/* đá về trang thông báo 404 khi user gõ bậy bạ trên link web */}
       </Switch>

@@ -11,6 +11,7 @@ import * as Yup from "yup";
 import { connect } from "react-redux";
 import { USER_SIGNIN_API } from "../../../redux/constants/Cyberbugs/Cyberbugs";
 import { signinCyberbugAction } from "../../../redux/actions/CyberBugsAction";
+import { Link, NavLink } from "react-router-dom";
 
 function LoginCyberBugs(props) {
   
@@ -30,7 +31,7 @@ function LoginCyberBugs(props) {
         className="d-flex flex-col justify-center items-center"
         style={{ height: window.innerHeight }}
       >
-        <h3 className="text-center mb-3">Login Cyberbugs</h3>
+        <h3 className="text-center mb-3">Sign in to Cyberbugs</h3>
         <div className="d-flex flex-col">
           <Input
             onChange={handleChange}
@@ -53,15 +54,19 @@ function LoginCyberBugs(props) {
             className="w-72"
           />
         </div>
-        <div className="text-danger">{errors.password}</div>
+        <div className="text-danger">{errors.password}</div>   
         <Button
           htmlType="submit"
           size="large"
-          className="mt-5 w-72"
+          className="mt-4 w-72"
           style={{ backgroundColor: "rgb(102,117,223)", color: "#fff" }}
         >
           Login
         </Button>
+        <div className="mt-1">
+          <div className="inline mr-1">Chưa có tài khoản?</div>
+          <Link to="/signup" size="large" className="mt-2 inline">Sign up</Link>
+        </div>
         <div className="d-flex mt-3">
           <Button
             type="primary"
