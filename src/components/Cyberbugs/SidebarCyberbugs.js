@@ -8,7 +8,7 @@ const { Header, Sider, Content } = Layout;
 export default function SidebarCyberbugs() {
   const dispatch = useDispatch();
   const [state, setState] = useState({
-    collapsed: true,
+    collapsed: false,
   });
 
   const toggle = () => {
@@ -86,7 +86,7 @@ export default function SidebarCyberbugs() {
         
       </Sider>
 
-      <Layout className="site-layout">
+      {/* <Layout className="site-layout">
         <Header
           style={{
             padding: 0,
@@ -111,7 +111,7 @@ export default function SidebarCyberbugs() {
         >
           Content
         </Content>
-      </Layout>
+      </Layout> */}
     </Layout>
   );
 }
