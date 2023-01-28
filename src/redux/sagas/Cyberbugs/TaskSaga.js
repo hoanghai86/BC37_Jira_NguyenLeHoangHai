@@ -35,6 +35,7 @@ function* createTaskSaga(action) {
     });
   } catch (error) {
     console.log(error.response.data);
+    alert("Fail! Only project creators can create tasks!");
   }
   yield put({
     type: HIDE_LOADING,
