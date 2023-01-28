@@ -28,6 +28,7 @@ import ProjectManagement from "./pages/CyberBugs/ProjectManagement/ProjectManage
 import DrawerCyberBugs from "./HOC/CyberbugsHOC/DrawerCyberBugs";
 import NotificationComponent from "./components/Notification/NotificationComponent";
 import SignUpCyberBugs from "./pages/CyberBugs/LoginCyberBugs/SignUpCyberBugs";
+import User from "./pages/CyberBugs/User/User";
 
 function App() {
 
@@ -74,6 +75,8 @@ function App() {
         <CyberbugsTemplate exact path="/createProject" Component={CreateProject} />
         <CyberbugsTemplate exact path="/projectmanagement" Component={ProjectManagement} />
         <CyberbugsTemplate exact path="/projectdetail/:projectId" Component={indexCyberBugs} />
+        <CyberbugsTemplate exact path="/user" Component={User} />
+
         
         {/* <CyberbugsTemplate exact path="/" Component={ProjectManagement} /> */}
         <UserLoginTemplate exact path="/" Component={LoginCyberBugs} />
