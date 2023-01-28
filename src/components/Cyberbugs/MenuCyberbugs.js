@@ -1,7 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export default function MenuCyberbugs() {
+const userLogin = useSelector(state => state.UserLoginCyberBugsReducer.userLogin);
+
   return (
     <div className="menu">
       <div className="account">
@@ -10,7 +13,8 @@ export default function MenuCyberbugs() {
         </div>
         <div className="account-info">
           <p>CyberLearn.vn</p>
-          <p>Report bugs</p>
+          <p>Welcome {userLogin?.name}</p>
+          <img src={userLogin?.avatar} className="rounded-lg"/>
         </div>
       </div>
       <div className="control">
