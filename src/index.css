@@ -228,9 +228,9 @@
   }
   
   .avatar-group .avatar img {
-    width: 40px;
+    width: 30px;
     border: 1px solid transparent;
-    height: 40px;
+    height: 30px;
     border-radius: 50%;
   }
   
@@ -489,4 +489,5 @@
 
 .css-dev-only-do-not-override-9ntgx0.ant-layout.ant-layout-has-sider{
   height: 200vh;
+  flex: none;
 }

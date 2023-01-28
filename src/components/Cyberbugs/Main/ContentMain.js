@@ -42,10 +42,10 @@ export default function ContentMain(props) {
             <Droppable key={index} droppableId={taskListDetail.statusId}>
               {(provided) => {
                 return (
-                  <div className="pr-2">
+                  <div className="pr-2 w-1/4">
                     <div
                       className="card px-2 py-2"
-                      style={{ width: "17rem", height: "auto" }}
+                      style={{ width: "15rem", height: "auto" }}
                     >
                       <div className="card-header">
                         {taskListDetail.statusName}
@@ -153,7 +153,7 @@ export default function ContentMain(props) {
   const handleShow = () => setShow(true);
 
   return (
-    <>
+    <div className="container">
       <div className="content mt-3" style={{ display: "flex" }}>
         {renderCardTaskList()}
 
@@ -275,6 +275,6 @@ export default function ContentMain(props) {
       </div>
 
       <ModalCyberBugs show={show} handleClose={handleClose}/>
-    </>
+    </div>
   );
 }

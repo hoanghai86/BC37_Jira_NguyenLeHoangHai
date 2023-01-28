@@ -16,7 +16,7 @@ export default function InfoMain(props) {
   const parse = require("html-react-parser");
 
   return (
-    <div>
+    <div className="container">
       <h3>{projectDetail.projectName}</h3>
       <section>{parse(`<p>${projectDetail.description}</p>`)}</section>
 

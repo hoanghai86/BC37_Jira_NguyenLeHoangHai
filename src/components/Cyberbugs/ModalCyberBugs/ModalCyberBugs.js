@@ -6,6 +6,7 @@ import { GET_ALL_STATUS_SAGA } from "../../../redux/constants/Cyberbugs/StatusCo
 import {
   CHANGE_ASSIGNESS,
   CHANGE_TASK_MODAL,
+  DELETE_TASK_SAGA,
   HANDLE_CHANGE_POST_API_SAGA,
   REMOVE_USER_ASSIGN,
   UPDATE_STATUS_TASK_SAGA,
@@ -230,6 +231,8 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                   <div className="task-title">
                     <i className="fa fa-bookmark" />
                     <select
+                      style={{display: "inline", width: "initial"}}
+                      className="form-control ml-1"
                       name="typeId"
                       value={taskDetailModal.typeId}
                       onChange={handleChange}
@@ -255,19 +258,29 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                       <i className="fa fa-link" />
                       <span style={{ paddingRight: 20 }}>Copy link</span>
                     </div>
-                    <i
-                      className="fa fa-trash-alt"
-                      style={{ cursor: "pointer" }}
-                    />
-                    <button
-                      type="button"
-                      className="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                      onClick={handleClose}
-                    >
-                      <span aria-hidden="true">×</span>
-                    </button>
+                    <div className="cursor-pointer hover:text-red-500"
+                        onClick={() => {
+                          const action = {
+                            type: DELETE_TASK_SAGA,
+                            projectId: taskDetailModal.projectId,
+                            taskId: taskDetailModal.taskId,
+                          };
+                          dispatch(action);
+                          handleClose();
+                        }}>
+                      <i className="fa fa-trash-alt text-sm"/>Delete Task
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        onClick={handleClose}
+                      >
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div className="modal-body">
@@ -449,19 +462,22 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                           <div className="row">
                             {taskDetailModal.assigness?.map((user, index) => {
                               return (
-                                <div key={index} className="col-md-auto mb-2  cursor-pointer" onClick={() => {
-                                  dispatch({
-                                    type: HANDLE_CHANGE_POST_API_SAGA,
-                                    actionType: REMOVE_USER_ASSIGN,
-                                    userId: user.id,
-                                  });
-                                  
-                                  
-                                  // dispatch({
-                                  //   type: REMOVE_USER_ASSIGN,
-                                  //   userId: user.id,
-                                  // });
-                                }}>
+                                <div
+                                  key={index}
+                                  className="col-md-auto mb-2  cursor-pointer"
+                                  onClick={() => {
+                                    dispatch({
+                                      type: HANDLE_CHANGE_POST_API_SAGA,
+                                      actionType: REMOVE_USER_ASSIGN,
+                                      userId: user.id,
+                                    });
+
+                                    // dispatch({
+                                    //   type: REMOVE_USER_ASSIGN,
+                                    //   userId: user.id,
+                                    // });
+                                  }}
+                                >
                                   <div
                                     style={{ display: "flex" }}
                                     className="item"
@@ -555,8 +571,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                                 } 
                                  */
                                 }}
-                              >
-                              </Select>
+                              ></Select>
                             </div>
                           </div>
                         </div>

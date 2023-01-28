@@ -6,6 +6,7 @@ import { notifiFunction } from "../../../util/Notification/notificationCyberbugs
 import {
   CHANGE_ASSIGNESS,
   CHANGE_TASK_MODAL,
+  DELETE_TASK_SAGA,
   GET_TASK_DETAIL,
   GET_TASK_DETAIL_SAGA,
   HANDLE_CHANGE_POST_API_SAGA,
@@ -35,6 +36,11 @@ function* createTaskSaga(action) {
     yield put({
       type: "CLOSE_DRAWER",
     });
+    yield put({
+      type: "GET_PROJECT_DETAIL",
+      projectId: data.content.projectId,
+    })
+    
   } catch (error) {
     console.log(error.response.data);
     alert("Fail! Only project creators can create tasks!");
@@ -50,6 +56,34 @@ function* createTaskSaga(action) {
 export function* theoDoiCreateTaskSaga() {
   yield takeLatest("CREATE_TASK_SAGA", createTaskSaga);
 }
+
+/* -------------------------------------------------- */
+function* deleteTaskSaga(action) {
+  const { projectId, taskId } = action;
+  console.log({ projectId, taskId });
+  try {
+    const { data, status } = yield call(() => {
+      return taskService.deleteTask(taskId);
+    });
+    if (status === STATUS_CODE.SUCCESS){
+      console.log(data);
+    notifiFunction("success", "Delete task successfully !");
+      yield put({
+        type: "GET_PROJECT_DETAIL",
+        projectId: projectId,
+      })
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* theoDoiDeleteTaskSaga(){
+  yield takeLatest(DELETE_TASK_SAGA, deleteTaskSaga);
+}
+
+
+
 
 /* -------------------------------------------------- */
 
