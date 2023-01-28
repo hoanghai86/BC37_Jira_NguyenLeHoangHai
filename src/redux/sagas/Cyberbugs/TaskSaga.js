@@ -13,6 +13,8 @@ import {
   UPDATE_STATUS_TASK_SAGA,
   UPDATE_TASK_SAGA,
 } from "../../constants/Cyberbugs/TaskConstants";
+import { history } from "../../../util/history";
+
 
 
 function* createTaskSaga(action) {
@@ -36,6 +38,9 @@ function* createTaskSaga(action) {
   } catch (error) {
     console.log(error.response.data);
     alert("Fail! Only project creators can create tasks!");
+    yield put({
+      type: "CLOSE_DRAWER",
+    });
   }
   yield put({
     type: HIDE_LOADING,
