@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { GET_ALL_PRIORITY_SAGA } from "../../../redux/constants/Cyberbugs/PriorityConstants";
@@ -13,7 +13,9 @@ import {
 } from "../../../redux/constants/Cyberbugs/TaskConstants";
 import { GET_ALL_TASK_TYPE_SAGA } from "../../../redux/constants/Cyberbugs/TaskTypeConstants";
 import { Editor } from "@tinymce/tinymce-react";
-import { Select } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
+import { CommentOutlined } from "@ant-design/icons";
+import { INSERT_COMMENT_TASK_SAGA } from "../../../redux/constants/Cyberbugs/CommentConstant";
 
 const { Option } = Select;
 
@@ -213,6 +215,22 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
     );
   };
 
+  // const [form] = Form.useForm();
+  // console.log(form);
+  const handleComment = (values) => {
+    const { taskId } = taskDetailModal;
+    
+    const { contentComment } = values;
+    dispatch({
+      type: INSERT_COMMENT_TASK_SAGA,
+      commentObject: {
+        taskId,
+        contentComment,
+      },
+    });
+    // form.resetFields();
+  };
+
   return (
     <>
       <Modal show={show} onHide={handleClose} size="xl">
@@ -231,7 +249,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                   <div className="task-title">
                     <i className="fa fa-bookmark" />
                     <select
-                      style={{display: "inline", width: "initial"}}
+                      style={{ display: "inline", width: "initial" }}
                       className="form-control ml-1"
                       name="typeId"
                       value={taskDetailModal.typeId}
@@ -258,17 +276,20 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                       <i className="fa fa-link" />
                       <span style={{ paddingRight: 20 }}>Copy link</span>
                     </div>
-                    <div className="cursor-pointer hover:text-red-500"
-                        onClick={() => {
-                          const action = {
-                            type: DELETE_TASK_SAGA,
-                            projectId: taskDetailModal.projectId,
-                            taskId: taskDetailModal.taskId,
-                          };
-                          dispatch(action);
-                          handleClose();
-                        }}>
-                      <i className="fa fa-trash-alt text-sm"/>Delete Task
+                    <div
+                      className="cursor-pointer hover:text-red-500"
+                      onClick={() => {
+                        const action = {
+                          type: DELETE_TASK_SAGA,
+                          projectId: taskDetailModal.projectId,
+                          taskId: taskDetailModal.taskId,
+                        };
+                        dispatch(action);
+                        handleClose();
+                      }}
+                    >
+                      <i className="fa fa-trash-alt text-sm" />
+                      Delete Task
                     </div>
                     <div>
                       <button
@@ -346,17 +367,25 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                             style={{ display: "flex" }}
                           >
                             <div className="avatar">
-                              <img
-                                src={require("../../../assets/img/download (1).jfif")}
-                                alt=""
+                              <CommentOutlined
+                                style={{ fontSize: "30px", color: "#ced4da" }}
                               />
+                              {/* <img
+                                src={require("../../../assets/img/download (1).jfif")}    
+                                alt=""
+                              /> */}
                             </div>
                             <div className="input-comment">
-                              <input
+                              <Form onFinish={handleComment}>
+                                <Form.Item name="contentComment">
+                                  <Input placeholder="Add ad comment..."/>
+                                </Form.Item>
+                              </Form>
+                              {/* <input
                                 type="text"
                                 placeholder="Add a comment ..."
                                 className="form-control"
-                              />
+                              /> */}
                               <p>
                                 <span
                                   style={{ fontWeight: 500, color: "gray" }}
@@ -379,41 +408,40 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                               </p>
                             </div>
                           </div>
-                          <div className="lastest-comment">
-                            <div className="comment-item">
-                              <div
-                                className="display-comment"
-                                style={{ display: "flex" }}
-                              >
-                                <div className="avatar">
-                                  <img
-                                    src={require("../../../assets/img/download (1).jfif")}
-                                    alt=""
-                                  />
-                                </div>
-                                <div>
-                                  <p style={{ marginBottom: 5 }}>
-                                    Lord Gaben <span>a month ago</span>
-                                  </p>
-                                  <p style={{ marginBottom: 5 }}>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Repellendus tempora ex
-                                    voluptatum saepe ab officiis alias totam ad
-                                    accusamus molestiae?
-                                  </p>
-                                  <div>
-                                    <span style={{ color: "#929398" }}>
-                                      Edit
-                                    </span>
-                                    •
-                                    <span style={{ color: "#929398" }}>
-                                      Delete
-                                    </span>
+                          {taskDetailModal.lstComment?.reverse().map((user, index) => {
+                            return (
+                              <div key={index}>
+                                <div className="lastest-comment">
+                                  <div className="comment-item">
+                                    <div
+                                      className="display-comment"
+                                      style={{ display: "flex" }}
+                                    >
+                                      <div className="avatar">
+                                        <img
+                                          // src={require("../../../assets/img/download (1).jfif")}
+                                          src={user.avatar}
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div>
+                                        <p style={{ marginBottom: 5 }}>
+                                          {user.name}
+                                        </p>
+                                        <p style={{ marginBottom: "auto" }}>
+                                          {user.commentContent}
+                                        </p>
+                                        <div>
+                                          <Button type="link">Edit</Button>
+                                          <Button type="link">Delete</Button>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
+                            );
+                          })}
                         </div>
                       </div>
                       <div className="col-4">

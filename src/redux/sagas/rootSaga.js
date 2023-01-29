@@ -8,6 +8,7 @@ import * as TaskTypeSaga from "./Cyberbugs/TaskTypeSaga"
 import * as PrioritySaga from "./Cyberbugs/PrioritySaga"
 import * as TaskSaga from "./Cyberbugs/TaskSaga"
 import * as StatusSaga from "./Cyberbugs/StatusSaga"
+import * as CommentTaskSaga from "./Cyberbugs/CommentTaskSaga"
 
 export function* rootSaga() {
   yield all([
@@ -45,6 +46,8 @@ export function* rootSaga() {
     TaskSaga.theoDoiGetTaskDetailSaga(),
     TaskSaga.theoDoiUpdateTaskStatusSaga(),
     TaskSaga.theoDoiHandleChangePostApi(),
+
+    CommentTaskSaga.theoDoiInsertCommentTaskSaga(),
 
   ]);
 }
