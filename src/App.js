@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Router, Routes, Switch, useHistory } from "react-router-dom"; //sử dụng thư viện này để chuyển qua lại các components
+import {
+  BrowserRouter,
+  Route,
+  Router,
+  Routes,
+  Switch,
+  useHistory,
+} from "react-router-dom"; //sử dụng thư viện này để chuyển qua lại các components
 import Header from "./components/Home/Header/Header";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
@@ -31,24 +38,16 @@ import SignUpCyberBugs from "./pages/CyberBugs/LoginCyberBugs/SignUpCyberBugs";
 import User from "./pages/CyberBugs/User/User";
 
 function App() {
-
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({type:'ADD_HISTORY', history: history});
+    dispatch({ type: "ADD_HISTORY", history: history });
     return () => {};
   }, []);
 
   return (
     <>
-      {/* <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-      </Routes> */}
-      {/* <Header /> */}
-
       <ModalHOC />
       <LoadingComponent />
       <DrawerCyberBugs />
@@ -70,14 +69,23 @@ function App() {
           Component={BaiTapToDoListSaga}
         />
         <HomeTemplate exact path="/demohocmodal" Component={DemoHOCModal} />
-        
         <CyberbugsTemplate exact path="/cyberbugs" Component={indexCyberBugs} />
-        <CyberbugsTemplate exact path="/createProject" Component={CreateProject} />
-        <CyberbugsTemplate exact path="/projectmanagement" Component={ProjectManagement} />
-        <CyberbugsTemplate exact path="/projectdetail/:projectId" Component={indexCyberBugs} />
+        <CyberbugsTemplate
+          exact
+          path="/createProject"
+          Component={CreateProject}
+        />
+        <CyberbugsTemplate
+          exact
+          path="/projectmanagement"
+          Component={ProjectManagement}
+        />
+        <CyberbugsTemplate
+          exact
+          path="/projectdetail/:projectId"
+          Component={indexCyberBugs}
+        />
         <CyberbugsTemplate exact path="/user" Component={User} />
-
-        
         {/* <CyberbugsTemplate exact path="/" Component={ProjectManagement} /> */}
         <UserLoginTemplate exact path="/" Component={LoginCyberBugs} />
         <UserLoginTemplate exact path="/signup" Component={SignUpCyberBugs} />
