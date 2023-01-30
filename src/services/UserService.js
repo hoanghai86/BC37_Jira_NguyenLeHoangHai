@@ -31,6 +31,10 @@ export class UserService extends baseService {
   putUpdateUser = (data) => {
     return this.put(`Users/editUser`, data);
   };
+
+  postSignup = (data) => {
+    return this.post(`Users/signup`, data);
+  };
 }
 
 export const userService = new UserService();
