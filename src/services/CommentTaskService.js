@@ -8,6 +8,10 @@ export class CommentTaskService extends baseService {
     return this.post(`Comment/insertComment`, commentTask);
   };
 
+  deleteCommentTask = (idComment) =>{
+    return this.delete(`Comment/deleteComment?idComment=${idComment}`);
+  }
+
 }
 
 export const commentTaskService = new CommentTaskService();

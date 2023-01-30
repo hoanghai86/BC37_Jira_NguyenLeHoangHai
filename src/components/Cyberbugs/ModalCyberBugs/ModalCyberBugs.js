@@ -15,7 +15,7 @@ import { GET_ALL_TASK_TYPE_SAGA } from "../../../redux/constants/Cyberbugs/TaskT
 import { Editor } from "@tinymce/tinymce-react";
 import { Button, Form, Input, Select } from 'antd';
 import { CommentOutlined } from "@ant-design/icons";
-import { INSERT_COMMENT_TASK_SAGA } from "../../../redux/constants/Cyberbugs/CommentConstant";
+import { DELETE_COMMENT_TASK_SAGA, INSERT_COMMENT_TASK_SAGA } from "../../../redux/constants/Cyberbugs/CommentConstant";
 
 const { Option } = Select;
 
@@ -433,7 +433,17 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                                         </p>
                                         <div>
                                           <Button type="link">Edit</Button>
-                                          <Button type="link">Delete</Button>
+                                          <Button type="link" onClick={()=>{
+
+                                            dispatch({
+                                              type: DELETE_COMMENT_TASK_SAGA,
+                                              commentObject: {      
+                                                taskId: taskDetailModal.taskId,
+                                                idComment: user.id,
+                                                idUser: user.idUser,
+                                              }
+                                            });
+                                          }}>Delete</Button>
                                         </div>
                                       </div>
                                     </div>
