@@ -215,8 +215,8 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
     );
   };
 
-  // const [form] = Form.useForm();
-  // console.log(form);
+  const [form] = Form.useForm();
+
   const handleComment = (values) => {
     const { taskId } = taskDetailModal;
     
@@ -228,7 +228,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
         contentComment,
       },
     });
-    // form.resetFields();
+    form.resetFields();
   };
 
   return (
@@ -376,9 +376,9 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                               /> */}
                             </div>
                             <div className="input-comment">
-                              <Form onFinish={handleComment}>
+                              <Form onFinish={handleComment} form={form}>
                                 <Form.Item name="contentComment">
-                                  <Input placeholder="Add ad comment..."/>
+                                  <Input placeholder="Add a comment..." autoFocus/>
                                 </Form.Item>
                               </Form>
                               {/* <input

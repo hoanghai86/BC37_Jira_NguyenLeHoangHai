@@ -202,14 +202,26 @@ export default function User() {
     },
   ];
 
+  // useEffect(() => {
+  //   form.setFieldsValue({
+  //     id: user?.userId,
+  //     email: user?.email,
+  //     name: user?.name,
+  //     phoneNumber: user?.phoneNumber,
+  //   });
+  // }, [user]);
+
   useEffect(() => {
-    form.setFieldsValue({
-      id: user?.userId,
-      email: user?.email,
-      name: user?.name,
-      phoneNumber: user?.phoneNumber,
-    });
+    if (user) {
+      form.setFieldsValue({
+        id: user.userId,
+        email: user.email,
+        name: user.name,
+        phoneNumber: user.phoneNumber,
+      });
+    }
   }, [user]);
+
 
   useEffect(() => {
     dispatch(getUserAction);
@@ -217,8 +229,9 @@ export default function User() {
 
   return (
     <div className="mx-2 w-3/4 mt-4">
-      <Table columns={columns} dataSource={userList} />
+      <Table columns={columns} rowKey={"userId"} dataSource={userList} />
       <Modal
+        forceRender //Force render Modal
         title={
           <h5 className="ant-typography text-base mb-3">
             Edit User
@@ -232,7 +245,7 @@ export default function User() {
         footer={[]}
         open={open}
       >
-        <Form
+        <Form     
           form={form}
           layout="vertical"
           name="edit-user"
@@ -308,7 +321,7 @@ export default function User() {
             </Form.Item>
 
             <Form.Item>
-              <Button onClick={() => setOpen(false)}>Cancle</Button>
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
             </Form.Item>
           </Space>
         </Form>
