@@ -17,6 +17,8 @@ import { TaskTypeReducer } from "./reducers/TaskTypeReducer";
 import { PriorityReducer } from "./reducers/PriorityReducer";
 import { StatusReducer } from "./reducers/StatusReducer";
 import { TaskReducer } from "./reducers/TaskReducer";
+import { composeWithDevTools } from "redux-devtools-extension";
+import userListReducer from "./reducers/UserListReducer";
 
 const middleWareSaga = createMiddleWareSaga();
 
@@ -35,11 +37,12 @@ const rootReducer = combineReducers({
   PriorityReducer,
   StatusReducer,
   TaskReducer,
+  userListReducer,
 });
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(reduxThunk, middleWareSaga)
+  composeWithDevTools(applyMiddleware(reduxThunk, middleWareSaga))
 );
 
 //Gọi saga

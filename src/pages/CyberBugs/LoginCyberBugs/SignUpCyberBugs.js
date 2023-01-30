@@ -1,80 +1,83 @@
 import React from "react";
-import { Button, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import {
   UserOutlined,
   LockOutlined,
-  FacebookOutlined,
-  TwitterOutlined,
   MailOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
+import { postUserRegisterAction } from "../../../redux/actions/UserAction";
 
 export default function SignUpCyberBugs() {
-  
+  const hadleSubmit = (value) => {
+    postUserRegisterAction(value);
+  };
   return (
-    <form
-    //   onSubmit={}
-      className="container"
-      style={{ height: window.innerHeight }}
-    >
+    <div className="container" style={{ height: window.innerHeight }}>
       <div
         className="d-flex flex-col justify-center items-center"
         style={{ height: window.innerHeight }}
       >
         <h3 className="text-center mb-3">Sign up to Cyberbugs</h3>
-        <div className="d-flex flex-col">
-          <Input
-            // onChange=''
-            name="email"
-            size="large"
-            placeholder="email"
-            prefix={<MailOutlined />}
-            className="w-72"
-          />
-        </div>
-        <div className="d-flex flex-col mt-3">
-          <Input
-            // onChange={}
-            type="password"
-            name="password"
-            size="large"
-            placeholder="password"
-            prefix={<LockOutlined />}
-            className="w-72"
-          />
-        </div>
-        <div className="d-flex flex-col mt-3">
-          <Input
-            // onChange={}
-            type="text"
-            name="name"
-            size="large"
-            placeholder="name"
-            prefix={<UserOutlined />}
-            className="w-72"
-          />
-        </div>
-        <div className="d-flex flex-col mt-3">
-          <Input
-            // onChange={}
-            type="text"
-            name="phoneNumber"
-            size="large"
-            placeholder="phoneNumber"
-            prefix={<PhoneOutlined />}
-            className="w-72"
-          />
-        </div>
-        <Button
+        <Form onFinish={hadleSubmit}>
+          <Form.Item name="email">
+            <Input
+              className="w-72"
+              size="large"
+              placeholder="email"
+              prefix={<MailOutlined />}
+            />
+          </Form.Item>
+          <Form.Item name="name">
+            <Input
+              className="w-72"
+              size="large"
+              placeholder="name"
+              prefix={<UserOutlined />}
+            />
+          </Form.Item>
+          <Form.Item name="phoneNumber">
+            <Input
+              className="w-72"
+              size="large"
+              placeholder="phone"
+              prefix={<PhoneOutlined />}
+            />
+          </Form.Item>
+          <Form.Item name="passWord">
+            <Input
+              type="password"
+              className="w-72"
+              size="large"
+              placeholder="password"
+              prefix={<LockOutlined />}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              htmlType="submit"
+              size="large"
+              style={{
+                width: "100%",
+                backgroundColor: "rgb(102,117,223)",
+                color: "#fff",
+              }}
+              className="mt-5"
+            >
+              Register
+            </Button>
+          </Form.Item>
+        </Form>
+
+        {/* <Button
           htmlType="submit"
           size="large"
           className="mt-4 w-72"
           style={{ backgroundColor: "rgb(102,117,223)", color: "#fff" }}
         >
           Sign Up
-        </Button>    
+        </Button> */}
       </div>
-    </form>
+    </div>
   );
 }
-
