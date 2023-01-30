@@ -95,6 +95,7 @@ function* addUserProjectSaga(action) {
     });
   } catch (err) {
     console.log(err.response.data);
+    alert("Fail! Only project creators can add members!");
   }
 }
 
