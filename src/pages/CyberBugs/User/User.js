@@ -178,7 +178,7 @@ export default function User() {
       render: (dataIndex, userInfo) => (
         <div>
           <EditOutlined
-            className="px-1 ant-btn ant-btn-icon-only bg-transparent hover:bg-transparent focus:bg-transparent text-blue-700 hover:text-blue-500 focus:text-blue-500 border-0 shadow-none cursor-pointer"
+            className="btn btn-primary mr-2"
             onClick={() => {
               console.log("userInfo: ", userInfo);
               setUser(userInfo);
@@ -195,7 +195,7 @@ export default function User() {
             okText="Yes"
             cancelText="No"
           >
-            <DeleteOutlined className="px-1 ant-btn ant-btn-icon-only bg-transparent hover:bg-transparent focus:bg-transparent text-red-600 hover:text-red-500 focus:text-red-500 border-0 shadow-none"></DeleteOutlined>
+            <DeleteOutlined className="btn btn-danger"></DeleteOutlined>
           </Popconfirm>
         </div>
       ),
@@ -313,15 +313,15 @@ export default function User() {
             <Input type="password" />
           </Form.Item>
 
-          <Space className="d-flex justify-end">
+          <Space className="d-flex justify-end mt-2">
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" size="large">
                 Update
               </Button>
             </Form.Item>
 
             <Form.Item>
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button onClick={() => setOpen(false)} size="large">Cancel</Button>
             </Form.Item>
           </Space>
         </Form>
