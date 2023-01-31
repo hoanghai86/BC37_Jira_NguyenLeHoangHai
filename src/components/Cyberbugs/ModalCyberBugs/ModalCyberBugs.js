@@ -16,8 +16,6 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Button, Form, Input, Select } from 'antd';
 import { CommentOutlined } from "@ant-design/icons";
 import { DELETE_COMMENT_TASK_SAGA, INSERT_COMMENT_TASK_SAGA } from "../../../redux/constants/Cyberbugs/CommentConstant";
-import TextArea from "antd/es/input/TextArea";
-
 const { Option } = Select;
 
 
@@ -35,6 +33,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
     taskDetailModal.description
   );
   const [content, setContent] = useState(taskDetailModal.description);
+  const [form] = Form.useForm();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -216,7 +215,6 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
     );
   };
 
-  const [form] = Form.useForm();
 
   const handleComment = (e) => {
     const { taskId } = taskDetailModal;
@@ -229,16 +227,6 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
       },
     });
     form.resetFields();
-  };
-
-  const inputRef = useRef(null);
-  const [input, setInput] = useState(true);
-  const sharedProps = {
-    style: {
-      width: '100%',
-    },
-    // defaultValue: 'Ant Design love you!',
-    ref: inputRef,
   };
 
   return (
@@ -386,19 +374,15 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                               /> */}
                             </div>
                             <div className="input-comment">
-                              {/* onFinish={handleComment} form={form} */}
                               <Form onFinish={handleComment} form={form}>
                                 <Form.Item name="contentComment">
-                                  <TextArea
+                                  <Input.TextArea
                                     placeholder="Add a comment..."
                                     onPressEnter={handleComment}
                                     autoSize
-                                    autoFocus                     
-                                  />
-                                </Form.Item>
+                                  />                                
+                                </Form.Item>                              
                               </Form>
-
-                                                       
 
                               {/* <input
                                 type="text"

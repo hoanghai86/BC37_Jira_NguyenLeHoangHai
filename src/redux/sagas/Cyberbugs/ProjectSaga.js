@@ -26,6 +26,7 @@ function* createProjectSaga(action) {
     //Gọi api thành công thì dispath lên reducer thông qua put
     if (status === STATUS_CODE.SUCCESS) {
       console.log(data);
+      notifiFunction("success","Create project successfuly !");
       //chuyển hướng trang
       history.push("/projectmanagement");
     }
