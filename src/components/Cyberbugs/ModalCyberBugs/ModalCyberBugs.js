@@ -16,6 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Button, Form, Input, Select } from 'antd';
 import { CommentOutlined } from "@ant-design/icons";
 import { DELETE_COMMENT_TASK_SAGA, INSERT_COMMENT_TASK_SAGA } from "../../../redux/constants/Cyberbugs/CommentConstant";
+import TextArea from "antd/es/input/TextArea";
 
 const { Option } = Select;
 
@@ -217,10 +218,9 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
 
   const [form] = Form.useForm();
 
-  const handleComment = (values) => {
+  const handleComment = (e) => {
     const { taskId } = taskDetailModal;
-    
-    const { contentComment } = values;
+    const  contentComment  = e.target.value;
     dispatch({
       type: INSERT_COMMENT_TASK_SAGA,
       commentObject: {
@@ -229,6 +229,16 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
       },
     });
     form.resetFields();
+  };
+
+  const inputRef = useRef(null);
+  const [input, setInput] = useState(true);
+  const sharedProps = {
+    style: {
+      width: '100%',
+    },
+    // defaultValue: 'Ant Design love you!',
+    ref: inputRef,
   };
 
   return (
@@ -376,11 +386,20 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                               /> */}
                             </div>
                             <div className="input-comment">
+                              {/* onFinish={handleComment} form={form} */}
                               <Form onFinish={handleComment} form={form}>
                                 <Form.Item name="contentComment">
-                                  <Input placeholder="Add a comment..." autoFocus/>
+                                  <TextArea
+                                    placeholder="Add a comment..."
+                                    onPressEnter={handleComment}
+                                    autoSize
+                                    autoFocus                     
+                                  />
                                 </Form.Item>
                               </Form>
+
+                                                       
+
                               {/* <input
                                 type="text"
                                 placeholder="Add a comment ..."
@@ -408,50 +427,60 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                               </p>
                             </div>
                           </div>
-                          {taskDetailModal.lstComment?.reverse().map((user, index) => {
-                            return (
-                              <div key={index}>
-                                <div className="lastest-comment">
-                                  <div className="comment-item">
-                                    <div
-                                      className="display-comment"
-                                      style={{ display: "flex" }}
-                                    >
-                                      <div className="avatar">
-                                        <img
-                                          // src={require("../../../assets/img/download (1).jfif")}
-                                          src={user.avatar}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <p style={{ marginBottom: 5 }}>
-                                          {user.name}
-                                        </p>
-                                        <p style={{ marginBottom: "auto" }}>
-                                          {user.commentContent}
-                                        </p>
+                          {taskDetailModal.lstComment
+                            ?.reverse()
+                            .map((user, index) => {
+                              return (
+                                <div key={index}>
+                                  <div className="lastest-comment">
+                                    <div className="comment-item">
+                                      <div
+                                        className="display-comment"
+                                        style={{ display: "flex" }}
+                                      >
+                                        <div className="avatar">
+                                          <img
+                                            // src={require("../../../assets/img/download (1).jfif")}
+                                            src={user.avatar}
+                                            alt=""
+                                          />
+                                        </div>
                                         <div>
-                                          <Button type="link">Edit</Button>
-                                          <Button type="link" onClick={()=>{
-
-                                            dispatch({
-                                              type: DELETE_COMMENT_TASK_SAGA,
-                                              commentObject: {      
-                                                taskId: taskDetailModal.taskId,
-                                                idComment: user.id,
-                                                idUser: user.idUser,
-                                              }
-                                            });
-                                          }}>Delete</Button>
+                                          <p style={{ marginBottom: 5 }}>
+                                            {user.name}
+                                          </p>
+                                          <p
+                                            style={{ marginBottom: "auto" }}
+                                            className="break-all"
+                                          >
+                                            {user.commentContent}
+                                          </p>
+                                          <div>
+                                            <Button type="link">Edit</Button>
+                                            <Button
+                                              type="link"
+                                              onClick={() => {
+                                                dispatch({
+                                                  type: DELETE_COMMENT_TASK_SAGA,
+                                                  commentObject: {
+                                                    taskId:
+                                                      taskDetailModal.taskId,
+                                                    idComment: user.id,
+                                                    idUser: user.idUser,
+                                                  },
+                                                });
+                                              }}
+                                            >
+                                              Delete
+                                            </Button>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
                         </div>
                       </div>
                       <div className="col-4">
