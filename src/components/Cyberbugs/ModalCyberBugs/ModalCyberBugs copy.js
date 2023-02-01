@@ -13,14 +13,11 @@ import {
 } from "../../../redux/constants/Cyberbugs/TaskConstants";
 import { GET_ALL_TASK_TYPE_SAGA } from "../../../redux/constants/Cyberbugs/TaskTypeConstants";
 import { Editor } from "@tinymce/tinymce-react";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, Select } from 'antd';
 import { CommentOutlined } from "@ant-design/icons";
-import {
-  DELETE_COMMENT_TASK_SAGA,
-  INSERT_COMMENT_TASK_SAGA,
-  UPDATE_COMMENT_TASK_SAGA,
-} from "../../../redux/constants/Cyberbugs/CommentConstant";
+import { DELETE_COMMENT_TASK_SAGA, INSERT_COMMENT_TASK_SAGA } from "../../../redux/constants/Cyberbugs/CommentConstant";
 const { Option } = Select;
+
 
 // import { Button, Modal } from 'antd';
 
@@ -32,12 +29,10 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
 
   const { projectDetail } = useSelector((state) => state.ProjectReducer);
   const [visibleEditor, setVisibleEditor] = useState(false);
-  const [visibleEditorComment, setVisibleEditorComment] = useState(false);
   const [historyContent, setHistoryContent] = useState(
     taskDetailModal.description
   );
   const [content, setContent] = useState(taskDetailModal.description);
-
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -108,10 +103,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                   //   value: content,
                   // })
                   setVisibleEditor(false);
-                }}
-              >
-                Save
-              </button>
+                }}>Save</button>
               <button
                 className="btn btn-secondary btn-sm w-20"
                 onClick={() => {
@@ -148,10 +140,6 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
     );
   };
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-
   const renderComment = () => {
     const jsxComment = taskDetailModal.lstComment
       ?.reverse()
@@ -168,61 +156,28 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                       alt=""
                     />
                   </div>
-                  <div key={index} className="w-full">
+                  <div>
                     <p style={{ marginBottom: 5 }}>{user.name}</p>
-                    <div style={{ marginBottom: "auto" }} className="break-all">
-                      {visibleEditorComment ? (
-                        <Form onFinish={onFinish}>
-                          <Form.Item name="editComment" initialValue={user.commentContent}>
-                            <Input.TextArea />
-                          </Form.Item>
-
-                          <Form.Item>
-                            <Button type="link" htmlType="submit">
-                              Save
-                            </Button>
-                            <Button
-                              type="link"
-                              onClick={() => {
-                                setVisibleEditorComment(false);
-                              }}
-                            >
-                              Close
-                            </Button>
-                          </Form.Item>
-                        </Form>
-                      ) : (
-                        <div>{user.commentContent}</div>
-                      )}
-                    </div>
+                    <p style={{ marginBottom: "auto" }} className="break-all">
+                      {user.commentContent}
+                    </p>
                     <div>
-                      {!visibleEditorComment && (
-                        <div>
-                          <Button
-                            type="link"
-                            onClick={() => {
-                              setVisibleEditorComment(true);
-                            }}
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            type="link"
-                            onClick={() => {
-                              dispatch({
-                                type: DELETE_COMMENT_TASK_SAGA,
-                                commentObject: {
-                                  taskId: taskDetailModal.taskId,
-                                  idComment: user.id,
-                                  idUser: user.idUser,
-                                },
-                              });
-                            }}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      )}
+                      <Button type="link">Edit</Button>
+                      <Button
+                        type="link"
+                        onClick={() => {
+                          dispatch({
+                            type: DELETE_COMMENT_TASK_SAGA,
+                            commentObject: {
+                              taskId: taskDetailModal.taskId,
+                              idComment: user.id,
+                              idUser: user.idUser,
+                            },
+                          });
+                        }}
+                      >
+                        Delete
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -232,8 +187,8 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
         );
       });
 
-    return <div>{jsxComment}</div>;
-  };
+      return {jsxComment};
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -243,7 +198,8 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
       actionType: CHANGE_TASK_MODAL,
       name,
       value,
-    });
+    })
+
 
     // dispatch({
     //   type: CHANGE_TASK_MODAL,
@@ -309,9 +265,10 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
     );
   };
 
+
   const handleComment = (e) => {
     const { taskId } = taskDetailModal;
-    const contentComment = e.target.value;
+    const  contentComment  = e.target.value;
     dispatch({
       type: INSERT_COMMENT_TASK_SAGA,
       commentObject: {
@@ -505,7 +462,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                             </div>
                           </div>
 
-                          {/* {taskDetailModal.lstComment
+                          {taskDetailModal.lstComment
                             ?.reverse()
                             .map((user, index) => {
                               return (
@@ -558,9 +515,10 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                                   </div>
                                 </div>
                               );
-                            })} */}
+                            })}
 
-                          {renderComment()}
+                            {renderComment}
+
                         </div>
                       </div>
                       <div className="col-4">

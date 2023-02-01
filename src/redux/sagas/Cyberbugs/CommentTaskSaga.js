@@ -1,7 +1,7 @@
 import { call, delay, put, select, takeLatest } from "redux-saga/effects";
 import { commentTaskService } from "../../../services/CommentTaskService";
 import { STATUS_CODE } from "../../../util/constants/settingSystem";
-import { DELETE_COMMENT_TASK_SAGA, INSERT_COMMENT_TASK_SAGA } from "../../constants/Cyberbugs/CommentConstant";
+import { DELETE_COMMENT_TASK_SAGA, INSERT_COMMENT_TASK_SAGA, UPDATE_COMMENT_TASK_SAGA } from "../../constants/Cyberbugs/CommentConstant";
 import { GET_TASK_DETAIL_SAGA } from "../../constants/Cyberbugs/TaskConstants";
 
 
@@ -50,4 +50,13 @@ function* deleteCommentTaskSaga(action) {
 
 export function* theoDoiDeleteCommentTaskSaga(){
   yield takeLatest(DELETE_COMMENT_TASK_SAGA, deleteCommentTaskSaga);
+}
+
+/* ----------------------------- */
+function* updateCommentTask(action){
+  
+}
+
+export function* theoDoiUpdateCommentTask(){
+  yield takeLatest(UPDATE_COMMENT_TASK_SAGA, updateCommentTask);
 }

@@ -168,12 +168,12 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                       alt=""
                     />
                   </div>
-                  <div key={index} className="w-full">
+                  <div className="w-full">
                     <p style={{ marginBottom: 5 }}>{user.name}</p>
                     <div style={{ marginBottom: "auto" }} className="break-all">
                       {visibleEditorComment ? (
-                        <Form onFinish={onFinish}>
-                          <Form.Item name="editComment" initialValue={user.commentContent}>
+                        <Form onFinish={onFinish} form={form}>
+                          <Form.Item name="editComment">
                             <Input.TextArea />
                           </Form.Item>
 
