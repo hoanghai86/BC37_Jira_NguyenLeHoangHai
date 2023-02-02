@@ -187,8 +187,8 @@ export default function User() {
           />
 
           <Popconfirm
-            title="Delete the task"
-            description="Are you sure to delete this project?"
+            title="Delete user"
+            description="Are you sure to delete this user?"
             onConfirm={() => {
               dispatch(deleteUserAction(dataIndex));
             }}
