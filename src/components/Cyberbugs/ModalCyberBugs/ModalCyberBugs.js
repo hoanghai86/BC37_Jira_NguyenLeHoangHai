@@ -154,8 +154,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
 
   const renderComment = () => {
     const jsxComment = taskDetailModal.lstComment
-      ?.reverse()
-      .map((user, index) => {
+      ?.map((user, index) => {
         return (
           <div key={index}>
             <div className="lastest-comment">
@@ -171,62 +170,31 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                   <div className="w-full">
                     <p style={{ marginBottom: 5 }}>{user.name}</p>
                     <div style={{ marginBottom: "auto" }} className="break-all">
-                      {visibleEditorComment ? (
-                        <Form onFinish={onFinish}>
-                          <Form.Item
-                            name="editComment"
-                            initialValue={user.commentContent}
-                          >
-                            <Input.TextArea />
-                          </Form.Item>
-
-                          <Form.Item>
-                            <Button type="link" htmlType="submit">
-                              Save
-                            </Button>
-                            <Button
-                              type="link"
-                              onClick={() => {
-                                setVisibleEditorComment(false);
-                              }}
-                            >
-                              Close
-                            </Button>
-                          </Form.Item>
-                        </Form>
-                      ) : (
-                        <div>{user.commentContent}</div>
-                      )}
+                      <div>{user.commentContent}</div>
                     </div>
-                    <div>
-                      {!visibleEditorComment && (
-                        <div>
-                          <Button
-                            type="link"
-                            onClick={(e) => {
-                              setVisibleEditorComment(true);
-                            }}
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            type="link"
-                            onClick={() => {
-                              dispatch({
-                                type: DELETE_COMMENT_TASK_SAGA,
-                                commentObject: {
-                                  taskId: taskDetailModal.taskId,
-                                  idComment: user.id,
-                                  idUser: user.idUser,
-                                },
-                              });
-                            }}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      )}
-                    </div>
+                    <Button
+                      type="link"
+                      onClick={() => {
+                        setVisibleEditorComment(true);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      type="link"
+                      onClick={() => {
+                        dispatch({
+                          type: DELETE_COMMENT_TASK_SAGA,
+                          commentObject: {
+                            taskId: taskDetailModal.taskId,
+                            idComment: user.id,
+                            idUser: user.idUser,
+                          },
+                        });
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -324,6 +292,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
     });
     form.resetFields();
   };
+  
 
   return (
     <>
@@ -454,8 +423,12 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                           </div> */}
                         </div>
 
-                        <div className="comment">
+{/* ********************************************RENDER COMMENT******************************** */}
+                        <div className="comment outline outline-gray-200 outline-offset-[10px] outline-1 ">
+
                           <h6>Comment</h6>
+                          {renderComment()}
+
                           <div
                             className="block-comment"
                             style={{ display: "flex" }}
@@ -471,13 +444,38 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                             </div>
                             <div className="input-comment">
                               <Form onFinish={handleComment} form={form}>
-                                <Form.Item name="contentComment">
-                                  <Input.TextArea
-                                    placeholder="Add a comment..."
-                                    onPressEnter={handleComment}
-                                    autoSize
-                                  />
-                                </Form.Item>
+                                {visibleEditorComment ? (
+                                  <Form.Item name="editComment" form={form}>
+                                    <Input.TextArea
+                                      placeholder="Edit a comment..."
+                                      onPressEnter={handleComment}
+                                      autoSize
+                                      autoFocus
+                                    />
+
+                                    <Button type="link" htmlType="submit" onClick={()=>{
+                                        setVisibleEditorComment(false);
+                                    }}>
+                                      Save
+                                    </Button>
+                                    <Button
+                                      type="link"
+                                      onClick={() => {
+                                        setVisibleEditorComment(false);
+                                      }}
+                                    >
+                                      Close
+                                    </Button>
+                                  </Form.Item>
+                                ) : (
+                                  <Form.Item name="contentComment">
+                                    <Input.TextArea
+                                      placeholder="Add a comment..."
+                                      onPressEnter={handleComment}
+                                      autoSize                                     
+                                    />
+                                  </Form.Item>
+                                )}
                               </Form>
 
                               {/* <input
@@ -563,7 +561,7 @@ export default function ModalCyberBugs({ show, handleClose }, props) {
                               );
                             })} */}
 
-                          {renderComment()}
+                          
                         </div>
                       </div>
                       <div className="col-4">
