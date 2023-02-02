@@ -53,8 +53,22 @@ export function* theoDoiDeleteCommentTaskSaga(){
 }
 
 /* ----------------------------- */
-function* updateCommentTask(action){
-  
+function* updateCommentTask(action) {
+  // console.log(action);
+  try {
+    const { data, status } = yield call(() =>
+      commentTaskService.updateCommentTask(action.updateComment)
+    );
+    if (status === STATUS_CODE.SUCCESS) {
+      console.log(data);
+      yield put({
+        type: GET_TASK_DETAIL_SAGA,
+        taskId: action.taskId,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function* theoDoiUpdateCommentTask(){
