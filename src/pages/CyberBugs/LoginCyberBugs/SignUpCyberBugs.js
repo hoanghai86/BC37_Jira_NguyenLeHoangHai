@@ -62,7 +62,7 @@ export default function SignUpCyberBugs() {
                 backgroundColor: "rgb(102,117,223)",
                 color: "#fff",
               }}
-              className="mt-5"
+              className="mt-1"
             >
               Register
             </Button>
