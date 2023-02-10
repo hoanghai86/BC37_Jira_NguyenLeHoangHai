@@ -92,7 +92,7 @@
   
   /* Menu */
   .menu {
-    height: 200vh;
+    height: 100vh;
     width: 18%;
     /* margin-left: 4%; */
     background-color: #f4f5f7;
@@ -488,7 +488,7 @@
   }
 
 .css-dev-only-do-not-override-9ntgx0.ant-layout.ant-layout-has-sider{
-  height: 200vh;
+  /* height: 200vh; */
   flex: none;
 }
 
@@ -496,6 +496,36 @@
   padding: 0 5px;
 }
 
-.css-dev-only-do-not-override-9ntgx0.ant-form-item{
+/* .css-dev-only-do-not-override-9ntgx0.ant-form-item{
   margin-bottom: 0;
+} */
+
+/* ****************************RESPONSIVE****************************** */
+@media screen and (max-width: 1200px){}
+
+@media screen and (max-width: 992px){}
+
+@media screen and (max-width: 768px){}
+
+@media screen and (max-width: 576px){
+:where(.css-dev-only-do-not-override-9ntgx0).ant-layout .ant-layout-sider {
+  display: none;
+}
+.css-dev-only-do-not-override-9ntgx0.ant-layout.ant-layout-has-sider{
+  height: 100vh;
+}
+.w-72 {
+  width: 100%;
+}
+.d-flex.flex-col.mt-3{
+  width: 100%;
+}
+.d-flex.flex-col{
+  width: 100%;
+}
+h3.text-center.mb-3{
+  font-size: xx-large;
+}
+
+
 }
